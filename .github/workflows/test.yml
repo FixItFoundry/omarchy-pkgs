@@ -72,6 +72,7 @@ jobs:
               ./tests/artifact-helpers.sh
               ./tests/build-matrix.sh
               ./tests/limine-mkinitcpio-hook.sh
+              ./tests/omarchy-a16-support.sh
               ./tests/voxtype-bin-install.sh
               ./tests/1password-polkit-owners.sh
               ./tests/superwhisper-bin-install.sh

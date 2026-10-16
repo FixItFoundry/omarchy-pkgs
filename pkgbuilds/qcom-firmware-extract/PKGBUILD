@@ -4,22 +4,32 @@
 
 pkgname=qcom-firmware-extract
 pkgver=1
-pkgrel=5
+pkgrel=9
 pkgdesc="Copy vendor-signed Qualcomm Snapdragon firmware from the machine's Windows installation"
 arch=('any')
 url="https://github.com/omacom/omarchy-pkgs"
 license=('GPL-2.0-or-later')
 depends=('bash' 'coreutils' 'diffutils' 'findutils' 'util-linux' 'xz' 'zstd')
-optdepends=('limine-mkinitcpio-hook: rebuild the boot image after installing firmware')
+optdepends=(
+  'limine-mkinitcpio-hook: rebuild the boot image after installing firmware'
+  'ntfs-3g: read-only fallback when the ntfs3 kernel driver cannot mount Windows'
+)
 options=('!debug')
 source=(
   'qcom-firmware-extract'
   'README.package.md'
+  'asus-zenbook-a16-required.list'
 )
-sha256sums=('SKIP' 'SKIP')
+sha256sums=('f1e7d8dada63e1df2d355a72dd7c9a34de60fd60243775bc9e366caefac759bb'
+  '36face9644dbec1facef3007f307d7e2256a4ae7d2768afbdb34f18bdc84eea4'
+  '4a5417f0c64c49785f52f6c21a9baa12dd6fe9df32fc9d0c9568fed9f2ad3338')
 
 package() {
   install -Dm755 qcom-firmware-extract "${pkgdir}/usr/bin/qcom-firmware-extract"
   install -Dm644 README.package.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
   install -dm755 "${pkgdir}/usr/share/${pkgname}/provided.d"
+  for compatible in asus,zenbook-a16-ux3607oa asus,ux3607oa; do
+    install -Dm644 asus-zenbook-a16-required.list \
+      "${pkgdir}/usr/share/${pkgname}/required.d/$compatible.list"
+  done
 }

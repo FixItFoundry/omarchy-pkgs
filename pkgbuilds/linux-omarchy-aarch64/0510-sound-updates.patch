@@ -1,4 +1,8 @@
+# Rebased from Omarchy 7.2.8-9 0510-sound-updates.patch
+# Original SHA256: 0fe32924142868879ac9417c67b0233b6ef8ddb0163183352479f5163bf7b5df
+
 diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
+index 99af95f33865258c4f5529aed48f897ecbefc11c..3abe73f5dd644f0a335e191e72cabd02b6e845b7 100644
 --- a/drivers/acpi/scan.c
 +++ b/drivers/acpi/scan.c
 @@ -1757,6 +1757,7 @@ static bool acpi_device_enumeration_by_parent(struct acpi_device *device)
@@ -10,6 +14,7 @@ diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
  		{"BSG2150", },
  		{"CSC3551", },
 diff --git a/drivers/platform/x86/serial-multi-instantiate.c b/drivers/platform/x86/serial-multi-instantiate.c
+index 1a369334f9cb602407174c5c78da736e5bc79958..3e89fcdd45f785df7da72255346ca06dbfcb94b4 100644
 --- a/drivers/platform/x86/serial-multi-instantiate.c
 +++ b/drivers/platform/x86/serial-multi-instantiate.c
 @@ -307,6 +307,15 @@ static void smi_remove(struct platform_device *pdev)
@@ -37,6 +42,7 @@ diff --git a/drivers/platform/x86/serial-multi-instantiate.c b/drivers/platform/
  	{ "BSG2150", (unsigned long)&bsg2150_data },
  	{ "CSC3551", (unsigned long)&cs35l41_hda },
 diff --git a/include/sound/ac97/codec.h b/include/sound/ac97/codec.h
+index 69b404c354f5015213c9788b8de75452fbea03b5..69aa7ee15b9105ce0532d4276ba1838073a48de2 100644
 --- a/include/sound/ac97/codec.h
 +++ b/include/sound/ac97/codec.h
 @@ -33,7 +33,7 @@ struct ac97_id {
@@ -58,6 +64,7 @@ diff --git a/include/sound/ac97/codec.h b/include/sound/ac97/codec.h
   * @probe: the function called when a ac97_codec_device is matched
   * @remove: the function called when the device is unbound/removed
 diff --git a/include/sound/asequencer.h b/include/sound/asequencer.h
+index ddbb6bf801bbda12310a118d109333e318cda5c8..efad366736a497b76a1ac2debfd4d4105ef07db3 100644
 --- a/include/sound/asequencer.h
 +++ b/include/sound/asequencer.h
 @@ -11,9 +11,6 @@
@@ -72,6 +79,7 @@ diff --git a/include/sound/asequencer.h b/include/sound/asequencer.h
   */
 diff --git a/include/sound/aw88399.h b/include/sound/aw88399.h
 new file mode 100644
+index 0000000000000000000000000000000000000000..a1e0de6be8eac12e85651ab6e8d9c3619e181559
 --- /dev/null
 +++ b/include/sound/aw88399.h
 @@ -0,0 +1,621 @@
@@ -697,6 +705,7 @@ new file mode 100644
 +
 +#endif /* __SOUND_AW88399_H */
 diff --git a/include/sound/control.h b/include/sound/control.h
+index e07f6b960641ff6cf585eacbdf48e3e9b8159a24..909db0d0485df11385769367b484daaaf56905f8 100644
 --- a/include/sound/control.h
 +++ b/include/sound/control.h
 @@ -7,6 +7,7 @@
@@ -717,6 +726,7 @@ diff --git a/include/sound/control.h b/include/sound/control.h
  int snd_ctl_unregister_ioctl(snd_kctl_ioctl_func_t fcn);
  #ifdef CONFIG_COMPAT
 diff --git a/include/sound/core.h b/include/sound/core.h
+index 373a91ac3dfdc441fab3aeb66244e848c4903c2e..15be947a730ef05271dcb12c55e47de027f2e622 100644
 --- a/include/sound/core.h
 +++ b/include/sound/core.h
 @@ -108,8 +108,8 @@ struct snd_card {
@@ -731,6 +741,7 @@ diff --git a/include/sound/core.h b/include/sound/core.h
  
  	void *private_data;		/* private data for soundcard */
 diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
+index b4e32787773980ed5e826b519a60d0d5867cf9ad..1d05f991f2ce7efccdb25428861932d26914feb9 100644
 --- a/include/sound/hda_codec.h
 +++ b/include/sound/hda_codec.h
 @@ -256,6 +256,7 @@ struct hda_codec {
@@ -742,6 +753,7 @@ diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
  	unsigned int ctl_dev_id:1; /* old control element id build behaviour */
  	unsigned int eld_jack_detect:1;	/* Machine jack-detection by ELD */
 diff --git a/include/sound/hda_regmap.h b/include/sound/hda_regmap.h
+index 4c1b9bebbd60fc4f123b728b3bda833f9f73500d..e06e4847ed2825d4a693a36004ed61009a5944a7 100644
 --- a/include/sound/hda_regmap.h
 +++ b/include/sound/hda_regmap.h
 @@ -69,11 +69,14 @@ void snd_hdac_regmap_sync(struct hdac_device *codec);
@@ -866,6 +878,7 @@ diff --git a/include/sound/hda_regmap.h b/include/sound/hda_regmap.h
  static inline int
  snd_hdac_regmap_update_amp_stereo(struct hdac_device *codec, hda_nid_t nid,
 diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+index 76fc33dce537dd3f604619dacc4e79afb93fcb7b..02d8689354c4ad13d128c2b532859f20706a0ab0 100644
 --- a/include/sound/pcm.h
 +++ b/include/sound/pcm.h
 @@ -145,61 +145,60 @@ struct snd_pcm_ops {
@@ -1018,6 +1031,7 @@ diff --git a/include/sound/pcm.h b/include/sound/pcm.h
  /* printk helpers */
  #define pcm_err(pcm, fmt, args...) \
 diff --git a/include/sound/pcm_params.h b/include/sound/pcm_params.h
+index fbf35df6e5cf581746f3f9ee8657e7ccfa8aba47..bc43955fcb76767c8cd43a96733ad4deea51032b 100644
 --- a/include/sound/pcm_params.h
 +++ b/include/sound/pcm_params.h
 @@ -71,7 +71,7 @@ static inline void snd_mask_set(struct snd_mask *mask, unsigned int val)
@@ -1069,6 +1083,7 @@ diff --git a/include/sound/pcm_params.h b/include/sound/pcm_params.h
  
  /**
 diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
+index 6916f71335977c66080f41f942d2b60f0d42f346..88a6159364d0d18f3fc7ca6a5e414cf5aefb5d9e 100644
 --- a/include/sound/rawmidi.h
 +++ b/include/sound/rawmidi.h
 @@ -176,8 +176,9 @@ int snd_rawmidi_proceed(struct snd_rawmidi_substream *substream);
@@ -1100,6 +1115,7 @@ diff --git a/include/sound/rawmidi.h b/include/sound/rawmidi.h
  static inline void snd_rawmidi_tie_devices(struct snd_rawmidi *r1,
  					   struct snd_rawmidi *r2)
 diff --git a/include/sound/seq_virmidi.h b/include/sound/seq_virmidi.h
+index 56a3f38df8c3bb51ce25c4f8bfb035fb552e8312..359cb363369d95f9ca90c9b44cd54b1a419c0d8b 100644
 --- a/include/sound/seq_virmidi.h
 +++ b/include/sound/seq_virmidi.h
 @@ -46,7 +46,6 @@ struct snd_virmidi_dev {
@@ -1111,6 +1127,7 @@ diff --git a/include/sound/seq_virmidi.h b/include/sound/seq_virmidi.h
  	struct list_head filelist;
  };
 diff --git a/include/uapi/sound/asequencer.h b/include/uapi/sound/asequencer.h
+index a5c41f771e059b0fa456e8508378bb3ed4f2ed78..c2e3d079c51ec72dd4e679036baedfd8b99c29ad 100644
 --- a/include/uapi/sound/asequencer.h
 +++ b/include/uapi/sound/asequencer.h
 @@ -308,16 +308,6 @@ struct snd_seq_ump_event {
@@ -1146,6 +1163,7 @@ diff --git a/include/uapi/sound/asequencer.h b/include/uapi/sound/asequencer.h
  	/* event filter flags */
  #define SNDRV_SEQ_FILTER_BROADCAST	(1U<<0)	/* accept broadcast messages */
 diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+index d3ce75ba938a84971edb6417160b2bdc2ec175b9..c11da9656e3811d2be42c81bebf650f724f72560 100644
 --- a/include/uapi/sound/asound.h
 +++ b/include/uapi/sound/asound.h
 @@ -169,72 +169,72 @@ enum {
@@ -1401,6 +1419,7 @@ diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
  #define SNDRV_CTL_IOCTL_ELEM_INFO	_IOWR('U', 0x11, struct snd_ctl_elem_info)
  #define SNDRV_CTL_IOCTL_ELEM_READ	_IOWR('U', 0x12, struct snd_ctl_elem_value)
 diff --git a/include/uapi/sound/firewire.h b/include/uapi/sound/firewire.h
+index 1e86872c151f5d0db7402e2f051effe8f2267d50..1235d89d2bff7d7fa165c2347fce68cff3360971 100644
 --- a/include/uapi/sound/firewire.h
 +++ b/include/uapi/sound/firewire.h
 @@ -79,11 +79,12 @@ struct snd_firewire_event_motu_register_dsp_change {
@@ -1471,6 +1490,7 @@ diff --git a/include/uapi/sound/firewire.h b/include/uapi/sound/firewire.h
   */
  struct snd_firewire_motu_command_dsp_meter {
 diff --git a/sound/atmel/ac97c.c b/sound/atmel/ac97c.c
+index e394205f469ba02de8df3b65af345c943d45ceca..234549e17351c9dc09025909cb13127b0442d501 100644
 --- a/sound/atmel/ac97c.c
 +++ b/sound/atmel/ac97c.c
 @@ -693,7 +693,7 @@ static int atmel_ac97c_probe(struct platform_device *pdev)
@@ -1615,6 +1635,7 @@ diff --git a/sound/atmel/ac97c.c b/sound/atmel/ac97c.c
  
  static struct platform_driver atmel_ac97c_driver = {
 diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+index ea699491f0c36f1580bd073be28f4438a7939d51..23d62fede06e893b21308473b5d93f3b1da57d32 100644
 --- a/sound/core/compress_offload.c
 +++ b/sound/core/compress_offload.c
 @@ -1393,17 +1393,17 @@ static long snd_compr_ioctl_compat(struct file *file, unsigned int cmd,
@@ -1645,6 +1666,7 @@ diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
  
  static int snd_compress_dev_register(struct snd_device *device)
 diff --git a/sound/core/control.c b/sound/core/control.c
+index 7a8dc506221e9850edcca5292817129d0829161b..78ce7bc936d29b22da4379a6be8dee47c3b29645 100644
 --- a/sound/core/control.c
 +++ b/sound/core/control.c
 @@ -38,7 +38,7 @@ struct snd_kctl_ioctl {
@@ -1801,6 +1823,7 @@ diff --git a/sound/core/control.c b/sound/core/control.c
  
  /* call lops under rwsems; called from snd_ctl_dev_*() below() */
 diff --git a/sound/core/control_compat.c b/sound/core/control_compat.c
+index 16bc80555f265991e73f1f2016f9c497c2aa82f0..87f7ad5ab739112e870f3237e4461331b8b837a1 100644
 --- a/sound/core/control_compat.c
 +++ b/sound/core/control_compat.c
 @@ -226,8 +226,8 @@ static int copy_ctl_value_from_user(struct snd_card *card,
@@ -1861,6 +1884,7 @@ diff --git a/sound/core/control_compat.c b/sound/core/control_compat.c
  	case SNDRV_CTL_IOCTL_POWER:
  	case SNDRV_CTL_IOCTL_POWER_STATE:
 diff --git a/sound/core/hwdep.c b/sound/core/hwdep.c
+index 973d11732bfd080067dc9dde7ca4016fbf056b09..c6de5345e946f1c85ad563c5b8fd63b03f3c4c9d 100644
 --- a/sound/core/hwdep.c
 +++ b/sound/core/hwdep.c
 @@ -87,7 +87,7 @@ static int snd_hwdep_open(struct inode *inode, struct file * file)
@@ -1903,6 +1927,7 @@ diff --git a/sound/core/hwdep.c b/sound/core/hwdep.c
  
  static void snd_hwdep_free(struct snd_hwdep *hwdep)
 diff --git a/sound/core/info.c b/sound/core/info.c
+index 54834dbe6b5972ce20be56475f92783efaddceef..3b8ccda04e1a5d22edc59497d405c6db6ac43f22 100644
 --- a/sound/core/info.c
 +++ b/sound/core/info.c
 @@ -78,7 +78,7 @@ static int alloc_info_private(struct snd_info_entry *entry,
@@ -1915,6 +1940,7 @@ diff --git a/sound/core/info.c b/sound/core/info.c
  	if (!data) {
  		module_put(entry->module);
 diff --git a/sound/core/init.c b/sound/core/init.c
+index cd21c6f520e9870f90112ea52400f388edd84d7c..d05bea3c87f5363f5c94fa6d4b7d8a2669c4915e 100644
 --- a/sound/core/init.c
 +++ b/sound/core/init.c
 @@ -466,20 +466,19 @@ static int snd_disconnect_fasync(int fd, struct file *file, int on)
@@ -2020,6 +2046,7 @@ diff --git a/sound/core/init.c b/sound/core/init.c
  		strcat(card->components, " ");
  	strcat(card->components, component);
 diff --git a/sound/core/jack.c b/sound/core/jack.c
+index 96e0733ede77834d90befaede879080dc7a797a9..0f04018181acb20f6bf85b11a9f6d4c7d3179e5a 100644
 --- a/sound/core/jack.c
 +++ b/sound/core/jack.c
 @@ -303,41 +303,41 @@ static ssize_t jack_type_read(struct file *file,
@@ -2084,6 +2111,7 @@ diff --git a/sound/core/jack.c b/sound/core/jack.c
  
  static int snd_jack_debugfs_add_inject_node(struct snd_jack *jack,
 diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
+index 591cff800329a595a9c5c83d09f4d6538f4b0584..ff9d7fd60a7ea722c07e5be8d9acd21a8889ac3a 100644
 --- a/sound/core/oss/mixer_oss.c
 +++ b/sound/core/oss/mixer_oss.c
 @@ -30,9 +30,7 @@ static int snd_mixer_oss_open(struct inode *inode, struct file *file)
@@ -2127,6 +2155,7 @@ diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
  
  /*
 diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
+index 9826d9a0be6d314d3b662d4d99337161eb9689e8..bd19328dca9e31b79529a9479e751e8be616722e 100644
 --- a/sound/core/oss/pcm_oss.c
 +++ b/sound/core/oss/pcm_oss.c
 @@ -879,11 +879,11 @@ static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
@@ -2232,6 +2261,7 @@ diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
  
  static void register_oss_dsp(struct snd_pcm *pcm, int index)
 diff --git a/sound/core/oss/pcm_plugin.c b/sound/core/oss/pcm_plugin.c
+index 5f4d6945a7df64771064a602766a3788aabaf5a4..acf5ca663ba8ca1b2aef4bebbda2979b9255a0a4 100644
 --- a/sound/core/oss/pcm_plugin.c
 +++ b/sound/core/oss/pcm_plugin.c
 @@ -272,13 +272,13 @@ static int snd_pcm_plug_formats(const struct snd_mask *mask,
@@ -2302,6 +2332,7 @@ diff --git a/sound/core/oss/pcm_plugin.c b/sound/core/oss/pcm_plugin.c
  	}
  }
 diff --git a/sound/core/pcm.c b/sound/core/pcm.c
+index bfedf571e021b20d6c65a306d7b38990ad0e7175..41c2cab7a52c412b7c68374059cd305a6b3fe3d7 100644
 --- a/sound/core/pcm.c
 +++ b/sound/core/pcm.c
 @@ -211,11 +211,9 @@ static const char * const snd_pcm_format_names[] = {
@@ -2343,6 +2374,7 @@ diff --git a/sound/core/pcm.c b/sound/core/pcm.c
  
  #if IS_ENABLED(CONFIG_SND_PCM_OSS)
 diff --git a/sound/core/pcm_misc.c b/sound/core/pcm_misc.c
+index 180b6b64a448e4da11f51e9fadda684c0e927229..13de3b02aa3406555f435800422395beb586eded 100644
 --- a/sound/core/pcm_misc.c
 +++ b/sound/core/pcm_misc.c
 @@ -24,15 +24,12 @@ struct pcm_format_data {
@@ -2428,6 +2460,7 @@ diff --git a/sound/core/pcm_misc.c b/sound/core/pcm_misc.c
  		memset(data, *pat, bytes);
  		return 0;
 diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 2fcdde09a030594c8f879246821f5cd915b5d0c8..62324282fcae9cdc5bd648a9047492e2116ad9b8 100644
 --- a/sound/core/pcm_native.c
 +++ b/sound/core/pcm_native.c
 @@ -257,7 +257,7 @@ int snd_pcm_info_user(struct snd_pcm_substream *substream,
@@ -2645,6 +2678,7 @@ diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
  	}
  };
 diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
+index 62addab22efe9a1e35b7761a2e669b3f04882317..f9cef3c6186187c3f4f5aece94fbcb1ac8e19ddb 100644
 --- a/sound/core/rawmidi.c
 +++ b/sound/core/rawmidi.c
 @@ -408,9 +408,10 @@ static int rawmidi_open_priv(struct snd_rawmidi *rmidi, int subdevice, int mode,
@@ -2713,6 +2747,7 @@ diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
  
  static int snd_rawmidi_alloc_substreams(struct snd_rawmidi *rmidi,
 diff --git a/sound/core/seq/oss/seq_oss.c b/sound/core/seq/oss/seq_oss.c
+index 021cd70f90db1208b56369ddaa9bb9f3534220f0..2835576040ed4fb03d3d9ae50f0769afb1c2374e 100644
 --- a/sound/core/seq/oss/seq_oss.c
 +++ b/sound/core/seq/oss/seq_oss.c
 @@ -206,17 +206,16 @@ odev_poll(struct file *file, poll_table * wait)
@@ -2744,6 +2779,7 @@ diff --git a/sound/core/seq/oss/seq_oss.c b/sound/core/seq/oss/seq_oss.c
  
  static int __init
 diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
+index 9ec6c1c0cabc584aab30f7bdf2d61129ad8e08af..5b86e75c2658a8a16a2995e624424d15fc3f8025 100644
 --- a/sound/core/seq/seq_clientmgr.c
 +++ b/sound/core/seq/seq_clientmgr.c
 @@ -59,7 +59,7 @@ static DEFINE_MUTEX(register_mutex);
@@ -2980,6 +3016,7 @@ diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
  
  static struct device *seq_dev;
 diff --git a/sound/core/seq/seq_clientmgr.h b/sound/core/seq/seq_clientmgr.h
+index feea8bb7d9870a6dbf033f41b0bd77972cc3c8a5..d7ffc5c1ed61a7e347ca41180ccc86094e2e98e4 100644
 --- a/sound/core/seq/seq_clientmgr.h
 +++ b/sound/core/seq/seq_clientmgr.h
 @@ -49,7 +49,6 @@ struct snd_seq_client {
@@ -2991,6 +3028,7 @@ diff --git a/sound/core/seq/seq_clientmgr.h b/sound/core/seq/seq_clientmgr.h
  	struct mutex ioctl_mutex;
  	int convert32;		/* convert 32->64bit */
 diff --git a/sound/core/seq/seq_ports.c b/sound/core/seq/seq_ports.c
+index 6612e92d801f5f2993d9817fa23d40e6a7cb47cf..eb67eb0eeb147c5a9a6185484e2da03f10e74f90 100644
 --- a/sound/core/seq/seq_ports.c
 +++ b/sound/core/seq/seq_ports.c
 @@ -48,8 +48,8 @@ struct snd_seq_client_port *snd_seq_port_use_ptr(struct snd_seq_client *client,
@@ -3267,6 +3305,7 @@ diff --git a/sound/core/seq/seq_ports.c b/sound/core/seq/seq_ports.c
  			*subs = s->info;
  			err = 0;
 diff --git a/sound/core/seq/seq_ports.h b/sound/core/seq/seq_ports.h
+index b689c0f4867c445e26f6f645a11b4d0fc0c941cd..12ad86bf1489073b091af699de59818d1f6e0fdc 100644
 --- a/sound/core/seq/seq_ports.h
 +++ b/sound/core/seq/seq_ports.h
 @@ -28,17 +28,17 @@
@@ -3292,6 +3331,7 @@ diff --git a/sound/core/seq/seq_ports.h b/sound/core/seq/seq_ports.h
  	int (*close)(void *private_data, struct snd_seq_port_subscribe *info);
  };
 diff --git a/sound/core/seq/seq_ump_client.c b/sound/core/seq/seq_ump_client.c
+index ccd93599b493b73bf6141225c509d92f204d26d2..4c1e81db376f810b76f96e87e1ea7269cacdb973 100644
 --- a/sound/core/seq/seq_ump_client.c
 +++ b/sound/core/seq/seq_ump_client.c
 @@ -37,8 +37,11 @@ struct seq_ump_client {
@@ -3381,6 +3421,7 @@ diff --git a/sound/core/seq/seq_ump_client.c b/sound/core/seq/seq_ump_client.c
  	client->seq_client =
  		snd_seq_create_kernel_client(card, ump->core.device,
 diff --git a/sound/core/seq/seq_virmidi.c b/sound/core/seq/seq_virmidi.c
+index 982828650d4157cce657871d0c0f6b276984ac37..6208bf7f57bf1886b9de825a07c2d691d418fd23 100644
 --- a/sound/core/seq/seq_virmidi.c
 +++ b/sound/core/seq/seq_virmidi.c
 @@ -78,10 +78,11 @@ static int snd_virmidi_dev_receive_event(struct snd_virmidi_dev *rdev,
@@ -3441,6 +3482,7 @@ diff --git a/sound/core/seq/seq_virmidi.c b/sound/core/seq/seq_virmidi.c
  	rdev->seq_mode = SNDRV_VIRMIDI_SEQ_DISPATCH;
  	rmidi->private_data = rdev;
 diff --git a/sound/core/sound.c b/sound/core/sound.c
+index 8d05fe0d263b23c67222459e2922f7f30a059318..24f40763a20c394dbd0fc64f61b736263688b32e 100644
 --- a/sound/core/sound.c
 +++ b/sound/core/sound.c
 @@ -167,11 +167,10 @@ static int snd_open(struct inode *inode, struct file *file)
@@ -3495,6 +3537,7 @@ diff --git a/sound/core/sound.c b/sound/core/sound.c
  
  #ifdef CONFIG_SND_DEBUG
 diff --git a/sound/core/sound_kunit.c b/sound/core/sound_kunit.c
+index 84e337ecbddd0a7182a245adb8c7f4e6741aed1f..0376112cc67e0d2319472636cf355c52823b1eff 100644
 --- a/sound/core/sound_kunit.c
 +++ b/sound/core/sound_kunit.c
 @@ -17,8 +17,8 @@
@@ -3509,6 +3552,7 @@ diff --git a/sound/core/sound_kunit.c b/sound/core/sound_kunit.c
  #define VALID_NAME "ValidName"
  #define NAME_W_SPEC_CHARS "In%v@1id name"
 diff --git a/sound/core/timer.c b/sound/core/timer.c
+index 9407954034cfa36f057e6050ff84dd40add65e6b..f666f05e9d45ad89382513c3bcd00e21c8758204 100644
 --- a/sound/core/timer.c
 +++ b/sound/core/timer.c
 @@ -1546,11 +1546,8 @@ static int realloc_user_queue(struct snd_timer_user *tu, int size)
@@ -3564,6 +3608,7 @@ diff --git a/sound/core/timer.c b/sound/core/timer.c
  
  /* unregister the system timer */
 diff --git a/sound/core/ump.c b/sound/core/ump.c
+index a85d1006e7a51084595746bfcf488fbfb8f39904..13f413df6516274add1911fbbb26d1e7ce0b6191 100644
 --- a/sound/core/ump.c
 +++ b/sound/core/ump.c
 @@ -1157,10 +1157,11 @@ static int snd_ump_legacy_open(struct snd_rawmidi_substream *substream)
@@ -3583,6 +3628,7 @@ diff --git a/sound/core/ump.c b/sound/core/ump.c
  				return err;
  		}
 diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
+index fd5bbf4615e20ef6fd7288e767f6db8e2755d41e..4e3ea23ca9135bbb83342fc07810cbf01991137d 100644
 --- a/sound/drivers/aloop.c
 +++ b/sound/drivers/aloop.c
 @@ -23,6 +23,7 @@
@@ -3802,6 +3848,7 @@ diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
  	return snd_ctl_enum_info(uinfo, 1, ARRAY_SIZE(texts), texts);
  }
 diff --git a/sound/drivers/dummy.c b/sound/drivers/dummy.c
+index 21eb0d76d6f8da801524d3847f2d868271edf2cc..610e78de44c154fcef91f73320885f68b6d2ffed 100644
 --- a/sound/drivers/dummy.c
 +++ b/sound/drivers/dummy.c
 @@ -100,6 +100,7 @@ struct dummy_timer_ops {
@@ -3917,6 +3964,7 @@ diff --git a/sound/drivers/dummy.c b/sound/drivers/dummy.c
  	.copy =		dummy_pcm_copy,
  	.fill_silence =	dummy_pcm_silence,
 diff --git a/sound/hda/codecs/ca0132.c b/sound/hda/codecs/ca0132.c
+index 3fe11983d6ca17eec59dd8a3ed6e634052e8f502..0f8fb62f021dea7b3b14a36cae8b3017e6d61e1b 100644
 --- a/sound/hda/codecs/ca0132.c
 +++ b/sound/hda/codecs/ca0132.c
 @@ -5788,7 +5788,8 @@ static int ca0132_alt_mic_boost_info(struct snd_kcontrol *kcontrol,
@@ -4021,6 +4069,7 @@ diff --git a/sound/hda/codecs/ca0132.c b/sound/hda/codecs/ca0132.c
  
  static void ca0132_config(struct hda_codec *codec)
 diff --git a/sound/hda/codecs/cm9825.c b/sound/hda/codecs/cm9825.c
+index eeb9ca38d2d8b6ec9752bcef25db90704e2ea079..8a74862d8a8130072d4a581da4a4775787b9c404 100644
 --- a/sound/hda/codecs/cm9825.c
 +++ b/sound/hda/codecs/cm9825.c
 @@ -15,7 +15,8 @@
@@ -4240,6 +4289,7 @@ diff --git a/sound/hda/codecs/cm9825.c b/sound/hda/codecs/cm9825.c
  		err = -ENXIO;
  		break;
 diff --git a/sound/hda/codecs/conexant.c b/sound/hda/codecs/conexant.c
+index 40da2832ba6648556368281b833641e86ea0c7fb..c517334b56fd9e288d18f6a5c73803a5ef9f491f 100644
 --- a/sound/hda/codecs/conexant.c
 +++ b/sound/hda/codecs/conexant.c
 @@ -292,6 +292,7 @@ enum {
@@ -4301,6 +4351,7 @@ diff --git a/sound/hda/codecs/conexant.c b/sound/hda/codecs/conexant.c
  	SND_PCI_QUIRK(0x1c06, 0x2012, "Lemote A1205", CXT_PINCFG_LEMOTE_A1205),
  	SND_PCI_QUIRK(0x1d05, 0x3012, "MECHREVO Wujie 15X Pro", CXT_FIXUP_HEADSET_MIC),
 diff --git a/sound/hda/codecs/generic.c b/sound/hda/codecs/generic.c
+index 660a9f2c0dedcfd18cca3f597a6f7136267a1866..6120f797b45a54f69017b6967880c248b2914852 100644
 --- a/sound/hda/codecs/generic.c
 +++ b/sound/hda/codecs/generic.c
 @@ -2695,30 +2695,13 @@ static const struct snd_kcontrol_new out_jack_mode_enum = {
@@ -4325,10 +4376,10 @@ diff --git a/sound/hda/codecs/generic.c b/sound/hda/codecs/generic.c
  {
  	struct hda_gen_spec *spec = codec->spec;
 -	int idx = 0;
- 
+-
 -	snd_hda_get_pin_label(codec, pin, &spec->autocfg, name, name_len, &idx);
 -	strlcat(name, " Jack Mode", name_len);
--
+ 
 -	for (; find_kctl_name(codec, name, idx); idx++)
 -		;
 +	snd_hda_get_pin_label(codec, pin, &spec->autocfg, name, name_len);
@@ -4346,6 +4397,7 @@ diff --git a/sound/hda/codecs/generic.c b/sound/hda/codecs/generic.c
  
  /* copy PCM stream info from @default_str, and override non-NULL entries
 diff --git a/sound/hda/codecs/hdmi/hdmi.c b/sound/hda/codecs/hdmi/hdmi.c
+index a4a2f2f0540c9b7628207b7d6846281df287c67a..1e7a05c8773311d782826f97af279f3edc3d3021 100644
 --- a/sound/hda/codecs/hdmi/hdmi.c
 +++ b/sound/hda/codecs/hdmi/hdmi.c
 @@ -2236,8 +2236,10 @@ void snd_hda_hdmi_acomp_pin_eld_notify(void *audio_ptr, int port, int dev_id)
@@ -4370,6 +4422,7 @@ diff --git a/sound/hda/codecs/hdmi/hdmi.c b/sound/hda/codecs/hdmi/hdmi.c
  	HDA_CODEC_ID_MODEL(0x67663d84, "Arise 84 HDMI/DP",	MODEL_GF),
 diff --git a/sound/hda/codecs/helpers/razer_blade16_2025.c b/sound/hda/codecs/helpers/razer_blade16_2025.c
 new file mode 100644
+index 0000000000000000000000000000000000000000..1f2e06d8fc131eaa46e6f18541177dd5f4d49e41
 --- /dev/null
 +++ b/sound/hda/codecs/helpers/razer_blade16_2025.c
 @@ -0,0 +1,820 @@
@@ -5194,6 +5247,7 @@ new file mode 100644
 +	}
 +}
 diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index e98cc42e1a78062a5cf3a13df2803b0e5e8c9b96..2b62c7b380b1f66c2198c17ed14b6ba11a92b297 100644
 --- a/sound/hda/codecs/realtek/alc269.c
 +++ b/sound/hda/codecs/realtek/alc269.c
 @@ -296,7 +296,8 @@ static void alc282_init(struct hda_codec *codec)
@@ -5391,8 +5445,8 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
 +	ALC245_FIXUP_MINISFORUM_JACK_DETECT,
  	ALC269_FIXUP_VAIO_VJFH52_MIC_NO_PRESENCE,
  	ALC233_FIXUP_MEDION_MTL_SPK,
- 	ALC233_FIXUP_STARLABS_STARFIGHTER,
-@@ -4216,7 +4274,6 @@ enum {
+ 	ALC269_FIXUP_STARLABS_LIMIT_INT_MIC_BOOST,
+@@ -4217,7 +4275,6 @@ enum {
  	ALC274_FIXUP_HP_AIO_BIND_DACS,
  	ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2,
  	ALC285_FIXUP_ASUS_GA605K_HEADSET_MIC,
@@ -5400,7 +5454,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	ALC269_FIXUP_POSITIVO_P15X_HEADSET_MIC,
  	ALC289_FIXUP_ASUS_ZEPHYRUS_DUAL_SPK,
  	ALC256_FIXUP_VAIO_RPL_MIC_NO_PRESENCE,
-@@ -4236,6 +4293,10 @@ enum {
+@@ -4237,6 +4294,10 @@ enum {
  	ALC236_FIXUP_DELL_HP_POP_NOISE,
  	ALC274_FIXUP_HP_89E9_GPIO,
  	ALC274_FIXUP_HP_VERBS,
@@ -5411,7 +5465,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  };
  
  /* A special fixup for Lenovo C940 and Yoga Duet 7;
-@@ -4273,6 +4334,20 @@ static void alc287_fixup_lenovo_yoga_book_9i(struct hda_codec *codec,
+@@ -4274,6 +4335,20 @@ static void alc287_fixup_lenovo_yoga_book_9i(struct hda_codec *codec,
  }
  
  static const struct hda_fixup alc269_fixups[] = {
@@ -5432,7 +5486,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	[ALC233_FIXUP_WUJIE_SPEAKERS] = {
  		.type = HDA_FIXUP_PINS,
  		.v.pins = (const struct hda_pintbl[]) {
-@@ -4713,6 +4788,10 @@ static const struct hda_fixup alc269_fixups[] = {
+@@ -4714,6 +4789,10 @@ static const struct hda_fixup alc269_fixups[] = {
  		.chain_id = ALC271_FIXUP_DMIC,
  	},
  	[ALC269_FIXUP_LIMIT_INT_MIC_BOOST] = {
@@ -5443,7 +5497,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  		.type = HDA_FIXUP_FUNC,
  		.v.func = alc269_fixup_limit_int_mic_boost,
  		.chained = true,
-@@ -5088,11 +5167,7 @@ static const struct hda_fixup alc269_fixups[] = {
+@@ -5089,11 +5168,7 @@ static const struct hda_fixup alc269_fixups[] = {
  		.type = HDA_FIXUP_FUNC,
  		.v.func = alc_fixup_inv_dmic,
  		.chained = true,
@@ -5456,7 +5510,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	},
  	[ALC255_FIXUP_DELL_SPK_NOISE] = {
  		.type = HDA_FIXUP_FUNC,
-@@ -5153,6 +5228,10 @@ static const struct hda_fixup alc269_fixups[] = {
+@@ -5154,6 +5229,10 @@ static const struct hda_fixup alc269_fixups[] = {
  	[ALC285_FIXUP_SPEAKER2_TO_DAC1] = {
  		.type = HDA_FIXUP_FUNC,
  		.v.func = alc285_fixup_speaker2_to_dac1,
@@ -5467,7 +5521,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  		.chained = true,
  		.chain_id = ALC269_FIXUP_THINKPAD_ACPI
  	},
-@@ -5672,11 +5751,7 @@ static const struct hda_fixup alc269_fixups[] = {
+@@ -5673,11 +5752,7 @@ static const struct hda_fixup alc269_fixups[] = {
  			{ }
  		},
  		.chained = true,
@@ -5480,7 +5534,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	},
  	[ALC285_FIXUP_THINKPAD_X1_GEN7] = {
  		.type = HDA_FIXUP_FUNC,
-@@ -6223,6 +6298,16 @@ static const struct hda_fixup alc269_fixups[] = {
+@@ -6224,6 +6299,16 @@ static const struct hda_fixup alc269_fixups[] = {
  		.chained = true,
  		.chain_id = ALC269_FIXUP_LENOVO_XPAD_ACPI,
  	},
@@ -5497,7 +5551,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	[ALC623_FIXUP_LENOVO_THINKSTATION_P340] = {
  		.type = HDA_FIXUP_FUNC,
  		.v.func = alc_fixup_no_shutup,
-@@ -6662,10 +6747,6 @@ static const struct hda_fixup alc269_fixups[] = {
+@@ -6663,10 +6748,6 @@ static const struct hda_fixup alc269_fixups[] = {
  		.chained = true,
  		.chain_id = ALC289_FIXUP_DUAL_SPK
  	},
@@ -5508,7 +5562,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	[ALC256_FIXUP_ACER_SFG16_MICMUTE_LED] = {
  		.type = HDA_FIXUP_FUNC,
  		.v.func = alc256_fixup_acer_sfg16_micmute_led,
-@@ -6738,6 +6819,10 @@ static const struct hda_fixup alc269_fixups[] = {
+@@ -6739,6 +6820,10 @@ static const struct hda_fixup alc269_fixups[] = {
  		.chained = true,
  		.chain_id = ALC256_FIXUP_SYSTEM76_MIC_NO_PRESENCE,
  	},
@@ -5519,16 +5573,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	[ALC269_FIXUP_VAIO_VJFH52_MIC_NO_PRESENCE] = {
  		.type = HDA_FIXUP_PINS,
  		.v.pins = (const struct hda_pintbl[]) {
-@@ -6758,6 +6843,8 @@ static const struct hda_fixup alc269_fixups[] = {
- 	[ALC233_FIXUP_STARLABS_STARFIGHTER] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc233_fixup_starlabs_starfighter,
-+		.chained = true,
-+		.chain_id = ALC269_FIXUP_LIMIT_INT_MIC_BOOST,
- 	},
- 	[ALC294_FIXUP_BASS_SPEAKER_15] = {
- 		.type = HDA_FIXUP_FUNC,
-@@ -6785,11 +6872,7 @@ static const struct hda_fixup alc269_fixups[] = {
+@@ -6792,11 +6877,7 @@ static const struct hda_fixup alc269_fixups[] = {
  			{ }
  		},
  		.chained = true,
@@ -5541,7 +5586,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	},
  	[ALC269_FIXUP_POSITIVO_P15X_HEADSET_MIC] = {
  		.type = HDA_FIXUP_FUNC,
-@@ -6907,6 +6990,26 @@ static const struct hda_fixup alc269_fixups[] = {
+@@ -6916,6 +6997,26 @@ static const struct hda_fixup alc269_fixups[] = {
  		.chained = true,
  		.chain_id = ALC274_FIXUP_HP_89E9_GPIO,
  	},
@@ -5568,7 +5613,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  };
  
  static const struct hda_quirk alc269_fixup_tbl[] = {
-@@ -6960,8 +7063,10 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -6969,8 +7070,10 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x1025, 0x1597, "Acer Nitro 5 AN517-55", ALC2XX_FIXUP_HEADSET_MIC),
  	SND_PCI_QUIRK(0x1025, 0x159e, "Acer Nitro 5 AN515-46", ALC2XX_FIXUP_HEADSET_MIC),
  	SND_PCI_QUIRK(0x1025, 0x160e, "Acer PT316-51S", ALC2XX_FIXUP_HEADSET_MIC),
@@ -5579,7 +5624,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x1025, 0x1679, "Acer Nitro 16 AN16-41", ALC2XX_FIXUP_HEADSET_MIC),
  	SND_PCI_QUIRK(0x1025, 0x169a, "Acer Swift SFG16", ALC256_FIXUP_ACER_SFG16_MICMUTE_LED),
  	SND_PCI_QUIRK(0x1025, 0x171e, "Acer Nitro ANV15-51", ALC245_FIXUP_ACER_MICMUTE_LED),
-@@ -6970,6 +7075,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -6980,6 +7083,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x1025, 0x1826, "Acer Helios ZPC", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
  	SND_PCI_QUIRK(0x1025, 0x182c, "Acer Helios ZPD", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
  	SND_PCI_QUIRK(0x1025, 0x1844, "Acer Helios ZPS", ALC287_FIXUP_PREDATOR_SPK_CS35L41_I2C_2),
@@ -5587,7 +5632,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x1028, 0x0470, "Dell M101z", ALC269_FIXUP_DELL_M101Z),
  	SND_PCI_QUIRK(0x1028, 0x053c, "Dell Latitude E5430", ALC292_FIXUP_DELL_E7X),
  	SND_PCI_QUIRK(0x1028, 0x054b, "Dell XPS one 2710", ALC275_FIXUP_DELL_XPS),
-@@ -7154,10 +7260,12 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7164,10 +7268,12 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x103c, 0x85c6, "HP Pavilion x360 Convertible 14-dy1xxx", ALC295_FIXUP_HP_MUTE_LED_COEFBIT11),
  	SND_PCI_QUIRK(0x103c, 0x85de, "HP Envy x360 13-ar0xxx", ALC285_FIXUP_HP_ENVY_X360),
  	SND_PCI_QUIRK(0x103c, 0x85f0, "HP Laptop 15-dw0xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
@@ -5600,7 +5645,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
  	SND_PCI_QUIRK(0x103c, 0x86c1, "HP Laptop 15-da3001TU", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
  	SND_PCI_QUIRK(0x103c, 0x86c7, "HP Envy AiO 32", ALC274_FIXUP_HP_ENVY_GPIO),
-@@ -7268,6 +7376,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7278,6 +7384,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x103c, 0x89e7, "HP Elite x2 G9", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
  	SND_PCI_QUIRK(0x103c, 0x8a05, "HP Dragonfly Folio G3 2-in-1", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
  	SND_PCI_QUIRK(0x103c, 0x8a06, "HP Dragonfly Folio G3 2-in-1", ALC245_FIXUP_CS35L41_SPI_4_HP_GPIO_LED),
@@ -5608,7 +5653,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x103c, 0x8a0f, "HP Pavilion 14-ec1xxx", ALC287_FIXUP_HP_GPIO_LED),
  	SND_PCI_QUIRK(0x103c, 0x8a1b, "HP 255 15.6 inch G9 Notebook PC", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
  	SND_PCI_QUIRK(0x103c, 0x8a1f, "HP Laptop 14s-dr5xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
-@@ -7359,10 +7468,11 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7369,10 +7476,11 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x103c, 0x8bf0, "HP", ALC236_FIXUP_HP_GPIO_LED),
  	SND_PCI_QUIRK(0x103c, 0x8c15, "HP Spectre x360 2-in-1 Laptop 14-eu0xxx", ALC245_FIXUP_HP_SPECTRE_X360_EU0XXX),
  	SND_PCI_QUIRK(0x103c, 0x8c16, "HP Spectre x360 2-in-1 Laptop 16-aa0xxx", ALC245_FIXUP_HP_SPECTRE_X360_16_AA0XXX),
@@ -5621,7 +5666,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x103c, 0x8c46, "HP EliteBook 830 G11", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
  	SND_PCI_QUIRK(0x103c, 0x8c47, "HP EliteBook 840 G11", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
  	SND_PCI_QUIRK(0x103c, 0x8c48, "HP EliteBook 860 G11", ALC245_FIXUP_CS35L41_SPI_2_HP_GPIO_LED),
-@@ -7511,6 +7621,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7521,6 +7629,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x103c, 0x8f42, "HP ZBook 8 G2a 14W", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED),
  	SND_PCI_QUIRK(0x103c, 0x8f57, "HP Trekker G7JC", ALC287_FIXUP_CS35L41_I2C_2),
  	SND_PCI_QUIRK(0x103c, 0x8f62, "HP ZBook 8 G2a 16W", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED),
@@ -5629,7 +5674,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x103c, 0x8f94, "HP ZBook 8 G2a 14", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED_INVERTED),
  	SND_PCI_QUIRK(0x103c, 0x8f95, "HP ZBook 8 G2a 16", ALC245_FIXUP_HP_TAS2781_I2C_MUTE_LED_INVERTED),
  	SND_PCI_QUIRK(0x1043, 0x1024, "ASUS Zephyrus G14 2025", ALC285_FIXUP_ASUS_GA403U_HEADSET_MIC),
-@@ -7518,6 +7629,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7528,6 +7637,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x1043, 0x1034, "ASUS GU605C", ALC285_FIXUP_ASUS_GU605_SPI_SPEAKER2_TO_DAC1),
  	SND_PCI_QUIRK(0x1043, 0x103e, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
  	SND_PCI_QUIRK(0x1043, 0x103f, "ASUS TX300", ALC282_FIXUP_ASUS_TX300),
@@ -5637,7 +5682,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x1043, 0x1054, "ASUS G614FH/FM/FP", ALC287_FIXUP_CS35L41_I2C_2),
  	SND_PCI_QUIRK(0x1043, 0x106d, "Asus K53BE", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
  	SND_PCI_QUIRK(0x1043, 0x106f, "ASUS VivoBook X515UA", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
-@@ -7525,16 +7637,15 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7535,16 +7645,15 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x1043, 0x10a1, "ASUS UX391UA", ALC294_FIXUP_ASUS_SPK),
  	SND_PCI_QUIRK(0x1043, 0x10a4, "ASUS TP3407SA", ALC287_FIXUP_TAS2781_I2C),
  	SND_PCI_QUIRK(0x1043, 0x10c0, "ASUS X540SA", ALC256_FIXUP_ASUS_MIC),
@@ -5657,7 +5702,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x1043, 0x125e, "ASUS Q524UQK", ALC255_FIXUP_ASUS_MIC_NO_PRESENCE),
  	SND_PCI_QUIRK(0x1043, 0x1271, "ASUS X430UN", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
  	SND_PCI_QUIRK(0x1043, 0x1290, "ASUS X441SA", ALC233_FIXUP_EAPD_COEF_AND_MIC_NO_PRESENCE),
-@@ -7583,7 +7694,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7593,7 +7702,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x1043, 0x1863, "ASUS UX6404VI/VV", ALC245_FIXUP_CS35L41_SPI_2),
  	SND_PCI_QUIRK(0x1043, 0x1881, "ASUS Zephyrus S/M", ALC294_FIXUP_ASUS_GX502_PINS),
  	SND_PCI_QUIRK(0x1043, 0x18b1, "Asus MJ401TA", ALC256_FIXUP_ASUS_HEADSET_MIC),
@@ -5666,7 +5711,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x1043, 0x18f1, "Asus FX505DT", ALC256_FIXUP_ASUS_HEADSET_MIC),
  	SND_PCI_QUIRK(0x1043, 0x194e, "ASUS UX563FD", ALC294_FIXUP_ASUS_HPE),
  	SND_PCI_QUIRK(0x1043, 0x1970, "ASUS UX550VE", ALC289_FIXUP_ASUS_GA401),
-@@ -7594,7 +7705,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7604,7 +7713,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x1043, 0x19f4, "ASUS UM3405GA", ALC294_FIXUP_ASUS_I2C_HEADSET_MIC),
  	SND_PCI_QUIRK(0x1043, 0x1a13, "Asus G73Jw", ALC269_FIXUP_ASUS_G73JW),
  	SND_PCI_QUIRK(0x1043, 0x1a63, "ASUS UX3405MA", ALC294_FIXUP_ASUS_SPI_HEADSET_MIC),
@@ -5675,7 +5720,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x1043, 0x1a8e, "ASUS G712LWS", ALC294_FIXUP_LENOVO_MIC_LOCATION),
  	SND_PCI_QUIRK(0x1043, 0x1a8f, "ASUS UX582ZS", ALC245_FIXUP_CS35L41_SPI_2),
  	SND_PCI_QUIRK(0x1043, 0x1b11, "ASUS UX431DA", ALC294_FIXUP_ASUS_COEF_1B),
-@@ -7623,6 +7734,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7633,6 +7742,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x1043, 0x1264, "ASUS UM5606KA", ALC294_FIXUP_BASS_SPEAKER_15),
  	SND_PCI_QUIRK(0x1043, 0x1e02, "ASUS UX3402ZA", ALC245_FIXUP_CS35L41_SPI_2),
  	SND_PCI_QUIRK(0x1043, 0x1e10, "ASUS VivoBook X507UAR", ALC256_FIXUP_ASUS_MIC_NO_PRESENCE),
@@ -5683,7 +5728,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x1043, 0x1e11, "ASUS Zephyrus G15", ALC289_FIXUP_ASUS_GA502),
  	SND_PCI_QUIRK(0x1043, 0x1e12, "ASUS UM3402", ALC287_FIXUP_CS35L41_I2C_2),
  	SND_PCI_QUIRK(0x1043, 0x1e1f, "ASUS Vivobook 15 X1504VAP", ALC2XX_FIXUP_HEADSET_MIC),
-@@ -7634,8 +7746,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7644,8 +7754,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x1043, 0x1e93, "ASUS ExpertBook B9403CVAR", ALC294_FIXUP_ASUS_HPE),
  	SND_PCI_QUIRK(0x1043, 0x1eb3, "ASUS Ally RC72LA", ALC287_FIXUP_ASUS_ALLY_X),
  	SND_PCI_QUIRK(0x1043, 0x1ed3, "ASUS HN7306W", ALC287_FIXUP_CS35L41_I2C_2),
@@ -5693,7 +5738,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x1043, 0x1c52, "ASUS Zephyrus G15 2022", ALC289_FIXUP_ASUS_GA401),
  	SND_PCI_QUIRK(0x1043, 0x1f11, "ASUS Zephyrus G14", ALC289_FIXUP_ASUS_GA401),
  	SND_PCI_QUIRK(0x1043, 0x1f12, "ASUS UM5302", ALC287_FIXUP_CS35L41_I2C_2),
-@@ -7846,7 +7957,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7857,7 +7966,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x17aa, 0x2211, "Thinkpad W541", ALC292_FIXUP_TPT440_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x2212, "Thinkpad T440", ALC292_FIXUP_TPT440_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x2214, "Thinkpad X240", ALC292_FIXUP_TPT440_DOCK),
@@ -5702,7 +5747,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x17aa, 0x2218, "Thinkpad X1 Carbon 2nd", ALC292_FIXUP_TPT440_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x2223, "ThinkPad T550", ALC292_FIXUP_TPT440_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x2226, "ThinkPad X250", ALC292_FIXUP_TPT440_DOCK),
-@@ -7862,7 +7973,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7873,7 +7982,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x17aa, 0x224b, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x224c, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x224d, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
@@ -5712,7 +5757,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x17aa, 0x2288, "Thinkpad X390", ALC285_FIXUP_THINKPAD_NO_BASS_SPK_HEADSET_JACK),
  	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Carbon 7th", ALC285_FIXUP_THINKPAD_HEADSET_JACK),
  	SND_PCI_QUIRK(0x17aa, 0x22be, "Thinkpad X1 Carbon 8th", ALC285_FIXUP_THINKPAD_HEADSET_JACK),
-@@ -7937,7 +8049,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7948,7 +8058,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x17aa, 0x3869, "Lenovo Yoga7 14IAL7", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
  	HDA_CODEC_QUIRK(0x17aa, 0x386a, "Lenovo Yoga 7 16IAP7", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
  	HDA_CODEC_QUIRK(0x17aa, 0x386e, "Legion Y9000X 2022 IAH7", ALC287_FIXUP_CS35L41_I2C_2),
@@ -5721,7 +5766,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	HDA_CODEC_QUIRK(0x17aa, 0x38a8, "Legion Pro 7 16ARX8H", ALC287_FIXUP_TAS2781_I2C), /* this must match before PCI SSID 17aa:386f below */
  	HDA_CODEC_QUIRK(0x17aa, 0x38a7, "Legion Pro 7 16ARX8H", ALC287_FIXUP_TAS2781_I2C), /* this must match before PCI SSID 17aa:386f below */
  	SND_PCI_QUIRK(0x17aa, 0x386f, "Legion Pro 7i 16IAX7", ALC287_FIXUP_CS35L41_I2C_2),
-@@ -7972,6 +8084,12 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -7983,6 +8093,12 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x17aa, 0x38b8, "Yoga S780-14.5 proX AMD YC Dual", ALC287_FIXUP_TAS2781_I2C),
  	SND_PCI_QUIRK(0x17aa, 0x38b9, "Yoga S780-14.5 proX AMD LX Dual", ALC287_FIXUP_TAS2781_I2C),
  	SND_PCI_QUIRK(0x17aa, 0x38ba, "Yoga S780-14.5 Air AMD quad YC", ALC287_FIXUP_TAS2781_I2C),
@@ -5734,7 +5779,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x17aa, 0x38bb, "Yoga S780-14.5 Air AMD quad AAC", ALC287_FIXUP_TAS2781_I2C),
  	SND_PCI_QUIRK(0x17aa, 0x38be, "Yoga S980-14.5 proX YC Dual", ALC287_FIXUP_TAS2781_I2C),
  	SND_PCI_QUIRK(0x17aa, 0x38bf, "Yoga S980-14.5 proX LX Dual", ALC287_FIXUP_TAS2781_I2C),
-@@ -7989,7 +8107,6 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -8000,7 +8116,6 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x17aa, 0x38df, "Yoga Y990 Intel YC Dual", ALC287_FIXUP_TAS2781_I2C),
  	SND_PCI_QUIRK(0x17aa, 0x38e0, "Yoga Y990 Intel VECO Dual", ALC287_FIXUP_TAS2781_I2C),
  	SND_PCI_QUIRK(0x17aa, 0x38f8, "Yoga Book 9i", ALC287_FIXUP_TAS2781_I2C),
@@ -5742,7 +5787,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	/* Legion 7 15ASH11 shares PCI SSID 17aa:38f9 with Thinkbook 16P Gen5;
  	 * use codec SSID to distinguish them
  	 */
-@@ -7999,7 +8116,9 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -8010,7 +8125,9 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x17aa, 0x38fc, "Lenovo Yoga Pro 7 15ASH11", ALC287_FIXUP_LENOVO_YOGA_PRO7),
  	SND_PCI_QUIRK(0x17aa, 0x38fd, "ThinkBook plus Gen5 Hybrid", ALC287_FIXUP_TAS2781_I2C),
  	SND_PCI_QUIRK(0x17aa, 0x3902, "Lenovo E50-80", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
@@ -5753,7 +5798,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x17aa, 0x3911, "Lenovo Yoga Pro 7 14IAH10", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
  	SND_PCI_QUIRK(0x17aa, 0x3912, "Lenovo Xiaoxin 14 GT", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
  	SND_PCI_QUIRK(0x17aa, 0x3913, "Lenovo 145", ALC236_FIXUP_LENOVO_INV_DMIC),
-@@ -8007,14 +8126,19 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -8018,14 +8135,19 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x17aa, 0x3920, "Yoga S990-16 pro Quad VECO Quad", ALC287_FIXUP_TXNW2781_I2C),
  	SND_PCI_QUIRK(0x17aa, 0x3929, "Thinkbook 13x Gen 5", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
  	SND_PCI_QUIRK(0x17aa, 0x392b, "Thinkbook 13x Gen 5", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD),
@@ -5775,7 +5820,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x17aa, 0x5034, "Thinkpad T450", ALC292_FIXUP_TPT440_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x5036, "Thinkpad T450s", ALC292_FIXUP_TPT440_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x503c, "Thinkpad L450", ALC292_FIXUP_TPT440_DOCK),
-@@ -8027,7 +8151,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -8038,7 +8160,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x17aa, 0x505f, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x5062, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x508b, "Thinkpad X12 Gen 1", ALC287_FIXUP_LEGION_15IMHG05_SPEAKERS),
@@ -5784,7 +5829,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x17aa, 0x511e, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x511f, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x9e54, "LENOVO NB", ALC269_FIXUP_LENOVO_EAPD),
-@@ -8041,9 +8165,14 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -8052,9 +8174,14 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x1854, 0x0489, "LG gram 16 (16Z90R-A)", ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
  	SND_PCI_QUIRK(0x1854, 0x048a, "LG gram 17 (17ZD90R)", ALC298_FIXUP_SAMSUNG_AMP_V2_4_AMPS),
  	SND_PCI_QUIRK(0x1854, 0x0490, "LG Gram Style 14 (14Z90RS)", ALC298_FIXUP_LG_GRAM_STYLE_14),
@@ -5799,7 +5844,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x1b35, 0x1235, "CZC B20", ALC269_FIXUP_CZC_B20),
  	SND_PCI_QUIRK(0x1b35, 0x1236, "CZC TMI", ALC269_FIXUP_CZC_TMI),
  	SND_PCI_QUIRK(0x1b35, 0x1237, "CZC L101", ALC269_FIXUP_CZC_L101),
-@@ -8078,13 +8207,17 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -8089,9 +8216,12 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x1d72, 0x1947, "RedmiBook Air", ALC255_FIXUP_XIAOMI_HEADSET_MIC),
  	SND_PCI_QUIRK(0x1e39, 0xca14, "MEDION NM14LNL", ALC233_FIXUP_MEDION_MTL_SPK),
  	SND_PCI_QUIRK(0x1e50, 0x7007, "Positivo DN50E", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
@@ -5812,12 +5857,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)", ALC245_FIXUP_BASS_HP_DAC),
  	SND_PCI_QUIRK(0x1f66, 0x0105, "Ayaneo Portable Game Player", ALC287_FIXUP_CS35L41_I2C_2),
  	SND_PCI_QUIRK(0x2014, 0x800a, "Positivo ARN50", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x2039, 0x0001, "Inspur S14-G1", ALC295_FIXUP_CHROME_BOOK),
-+	SND_PCI_QUIRK(0x2145, 0x0001, "Star Labs StarFighter", ALC233_FIXUP_STARLABS_STARFIGHTER),
- 	SND_PCI_QUIRK(0x2782, 0x0214, "VAIO VJFE-CL", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x2782, 0x0228, "Infinix ZERO BOOK 13", ALC269VB_FIXUP_INFINIX_ZERO_BOOK_13),
- 	SND_PCI_QUIRK(0x2782, 0x0232, "CHUWI CoreBook XPro", ALC269VB_FIXUP_CHUWI_COREBOOK_XPRO),
-@@ -8095,6 +8228,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -8107,6 +8237,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x2782, 0x1705, "MEDION E15433", ALC269VC_FIXUP_INFINIX_Y4_MAX),
  	SND_PCI_QUIRK(0x2782, 0x1707, "Vaio VJFE-ADL", ALC298_FIXUP_SPK_VOLUME),
  	SND_PCI_QUIRK(0x2782, 0x4900, "MEDION E15443", ALC233_FIXUP_MEDION_MTL_SPK),
@@ -5825,15 +5865,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	SND_PCI_QUIRK(0x2782, 0xa212, "Lunnen Ground 14", ALC269VC_FIXUP_LUNNEN_GROUND_14),
  	SND_PCI_QUIRK(0x7017, 0x2014, "Star Labs StarFighter", ALC233_FIXUP_STARLABS_STARFIGHTER),
  	SND_PCI_QUIRK(0x8086, 0x2074, "Intel NUC 8", ALC233_FIXUP_INTEL_NUC8_DMIC),
-@@ -8168,6 +8302,7 @@ static const struct hda_quirk alc269_fixup_vendor_tbl[] = {
- 	SND_PCI_QUIRK_VENDOR(0x104d, "Sony VAIO", ALC269_FIXUP_SONY_VAIO),
- 	SND_PCI_QUIRK_VENDOR(0x17aa, "Lenovo XPAD", ALC269_FIXUP_LENOVO_XPAD_ACPI),
- 	SND_PCI_QUIRK_VENDOR(0x19e5, "Huawei Matebook", ALC255_FIXUP_MIC_MUTE_LED),
-+	SND_PCI_QUIRK_VENDOR(0x2145, "Star Labs", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
- 	{}
- };
- 
-@@ -8307,6 +8442,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
+@@ -8320,6 +8451,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
  	{.id = ALC2XX_FIXUP_HEADSET_MIC, .name = "alc2xx-fixup-headset-mic"},
  	{.id = ALC245_FIXUP_BASS_HP_DAC, .name = "alc245-fixup-bass-hp-dac"},
  	{.id = ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO, .name = "alc256-honor-mrb-xxx-m1020-audio"},
@@ -5841,7 +5873,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  	{}
  };
  #define ALC225_STANDARD_PINS \
-@@ -8912,6 +9048,7 @@ static int alc269_probe(struct hda_codec *codec, const struct hda_device_id *id)
+@@ -8925,6 +9057,7 @@ static int alc269_probe(struct hda_codec *codec, const struct hda_device_id *id)
  		spec->init_hook = alc256_init;
  		spec->gen.mixer_nid = 0; /* ALC256 does not have any loopback mixer path */
  		if (codec->core.vendor_id == 0x10ec0236 &&
@@ -5850,6 +5882,7 @@ diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269
  			spec->en_3kpull_low = false;
  		break;
 diff --git a/sound/hda/codecs/realtek/alc662.c b/sound/hda/codecs/realtek/alc662.c
+index a640292c4f100f3c6d311f7527234be7dbb50b2c..eff7c83b9c592f07df0f8cd4ce77aa3339d4119b 100644
 --- a/sound/hda/codecs/realtek/alc662.c
 +++ b/sound/hda/codecs/realtek/alc662.c
 @@ -325,6 +325,7 @@ enum {
@@ -5880,6 +5913,7 @@ diff --git a/sound/hda/codecs/realtek/alc662.c b/sound/hda/codecs/realtek/alc662
  #if 0
  	/* Below is a quirk table taken from the old code.
 diff --git a/sound/hda/codecs/side-codecs/Kconfig b/sound/hda/codecs/side-codecs/Kconfig
+index 1cfd83e251e4b898c2fd888151ce3712355dc2b8..f90f1dfcec68342038a883cc75a667d9d07647c8 100644
 --- a/sound/hda/codecs/side-codecs/Kconfig
 +++ b/sound/hda/codecs/side-codecs/Kconfig
 @@ -13,6 +13,24 @@ config SND_HDA_CIRRUS_SCODEC_KUNIT_TEST
@@ -5908,6 +5942,7 @@ diff --git a/sound/hda/codecs/side-codecs/Kconfig b/sound/hda/codecs/side-codecs
  	tristate
  	select SND_HDA_GENERIC
 diff --git a/sound/hda/codecs/side-codecs/Makefile b/sound/hda/codecs/side-codecs/Makefile
+index 245e84f6a121d63b0c47f895e88c10de46d1cf9e..7dd010c68f78a1bd861a1db17e0ef46a288ebc2b 100644
 --- a/sound/hda/codecs/side-codecs/Makefile
 +++ b/sound/hda/codecs/side-codecs/Makefile
 @@ -3,6 +3,8 @@ subdir-ccflags-y += -I$(src)/../../common
@@ -5930,6 +5965,7 @@ diff --git a/sound/hda/codecs/side-codecs/Makefile b/sound/hda/codecs/side-codec
  obj-$(CONFIG_SND_HDA_SCODEC_CS35L41_SPI) += snd-hda-scodec-cs35l41-spi.o
 diff --git a/sound/hda/codecs/side-codecs/aw88399_hda.c b/sound/hda/codecs/side-codecs/aw88399_hda.c
 new file mode 100644
+index 0000000000000000000000000000000000000000..11cef49230242debb08af10fdc70601332622267
 --- /dev/null
 +++ b/sound/hda/codecs/side-codecs/aw88399_hda.c
 @@ -0,0 +1,373 @@
@@ -6308,6 +6344,7 @@ new file mode 100644
 +MODULE_FIRMWARE("aw88399_acf.bin");
 diff --git a/sound/hda/codecs/side-codecs/aw88399_hda.h b/sound/hda/codecs/side-codecs/aw88399_hda.h
 new file mode 100644
+index 0000000000000000000000000000000000000000..ca0aa5279298e0ebbf773939c7125f47227be90c
 --- /dev/null
 +++ b/sound/hda/codecs/side-codecs/aw88399_hda.h
 @@ -0,0 +1,36 @@
@@ -6349,6 +6386,7 @@ new file mode 100644
 +#endif /* __AW88399_HDA_H__ */
 diff --git a/sound/hda/codecs/side-codecs/aw88399_hda_i2c.c b/sound/hda/codecs/side-codecs/aw88399_hda_i2c.c
 new file mode 100644
+index 0000000000000000000000000000000000000000..186e13adbc6cf9f9d0283a4a9739118f63fe2a4b
 --- /dev/null
 +++ b/sound/hda/codecs/side-codecs/aw88399_hda_i2c.c
 @@ -0,0 +1,54 @@
@@ -6407,6 +6445,7 @@ new file mode 100644
 +MODULE_AUTHOR("Yakov Till <yakov.till@gmail.com>");
 +MODULE_LICENSE("GPL");
 diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-codecs/cs35l41_hda.c
+index 237059ef22f5c77c0e39133e59fc18ff9b06bd65..62296be45c55e73c13f54e86308bc9876717b7fe 100644
 --- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
 +++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
 @@ -170,6 +170,7 @@ static int cs35l41_request_firmware_file(struct cs35l41_hda *cs35l41,
@@ -6458,22 +6497,22 @@ diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-
  			      cs35l41_hda_fw_ids[cs35l41->firmware_type]);
 -	if (ret)
 -		goto err;
-+	if (ret) {
-+		cs35l41_set_default_tuning_params(cs35l41);
-+		return ret;
-+	}
- 
- 	cs35l41_hda_apply_calibration(cs35l41);
+-
+-	cs35l41_hda_apply_calibration(cs35l41);
 -
 -err:
 -	if (ret)
--		cs35l41_set_default_tuning_params(cs35l41);
++	if (ret) {
+ 		cs35l41_set_default_tuning_params(cs35l41);
 -	release_firmware(wmfw_firmware);
 -	release_firmware(coeff_firmware);
 -	kfree(wmfw_filename);
 -	kfree(coeff_filename);
--
++		return ret;
++	}
+ 
 -	return ret;
++	cs35l41_hda_apply_calibration(cs35l41);
 +	return 0;
  }
  
@@ -6512,6 +6551,7 @@ diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-
  	if (cs35l41->control_bus == SPI) {
  		spi = to_spi_device(cs35l41->dev);
 diff --git a/sound/hda/codecs/side-codecs/cs35l56_hda.c b/sound/hda/codecs/side-codecs/cs35l56_hda.c
+index 78c2cf387a001fdcfebeb4b9ffd46885aaae37cc..bc207ab5b020a5b388a8276093c40fe9c301c8f3 100644
 --- a/sound/hda/codecs/side-codecs/cs35l56_hda.c
 +++ b/sound/hda/codecs/side-codecs/cs35l56_hda.c
 @@ -527,18 +527,6 @@ static void cs35l56_hda_request_firmware_files(struct cs35l56_hda *cs35l56,
@@ -6596,6 +6636,7 @@ diff --git a/sound/hda/codecs/side-codecs/cs35l56_hda.c b/sound/hda/codecs/side-
  
  static void cs35l56_hda_dsp_work(struct work_struct *work)
 diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
+index 624db967f17bcede4998d96269a752d879130303..6c502c34e015a1c0a4ee558bfe72af3e73be7546 100644
 --- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
 +++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
 @@ -88,7 +88,6 @@ static int tas2781_read_acpi(struct tasdevice_priv *p, const char *hid)
@@ -6632,6 +6673,7 @@ diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/s
  
  	return ret;
 diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_spi.c b/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
+index 271c56a79c32ca188a577421b635113f4318c2a3..d3b2a746e1a7c2f78bca05d0d86d221801cc3b96 100644
 --- a/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
 +++ b/sound/hda/codecs/side-codecs/tas2781_hda_spi.c
 @@ -328,7 +328,6 @@ static int tas2781_read_acpi(struct tas2781_hda *tas_hda,
@@ -6669,6 +6711,7 @@ diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_spi.c b/sound/hda/codecs/s
  }
  
 diff --git a/sound/hda/common/auto_parser.c b/sound/hda/common/auto_parser.c
+index 5bc95d3116ff051624adea921f360f88c0a11971..b3f16f616396af376ce90955b79f8cf436b59983 100644
 --- a/sound/hda/common/auto_parser.c
 +++ b/sound/hda/common/auto_parser.c
 @@ -601,9 +601,9 @@ static int find_idx_in_nid_list(hda_nid_t nid, const hda_nid_t *list, int nums)
@@ -6809,6 +6852,7 @@ diff --git a/sound/hda/common/auto_parser.c b/sound/hda/common/auto_parser.c
  	default:
  		if (cfg) {
 diff --git a/sound/hda/common/codec.c b/sound/hda/common/codec.c
+index 33dbe21fa165c9263465ae2e53ed6843f4e76f41..5d9b53bd64ea0acdde5665eb9a66cb8a42357e4f 100644
 --- a/sound/hda/common/codec.c
 +++ b/sound/hda/common/codec.c
 @@ -39,6 +39,12 @@ static int call_exec_verb(struct hda_bus *bus, struct hda_codec *codec,
@@ -6847,6 +6891,7 @@ diff --git a/sound/hda/common/codec.c b/sound/hda/common/codec.c
  		for (;;) {
  			kctl = snd_ctl_new1(knew, codec);
 diff --git a/sound/hda/common/hda_auto_parser.h b/sound/hda/common/hda_auto_parser.h
+index 87af3d8c02f7f68ffa7c9006fdcf43d836e939eb..3c5f3ad40074c582f6be9a2a1d4644b74fc1628f 100644
 --- a/sound/hda/common/hda_auto_parser.h
 +++ b/sound/hda/common/hda_auto_parser.h
 @@ -46,7 +46,7 @@ const char *hda_get_autocfg_input_label(struct hda_codec *codec,
@@ -6859,6 +6904,7 @@ diff --git a/sound/hda/common/hda_auto_parser.h b/sound/hda/common/hda_auto_pars
  enum {
  	INPUT_PIN_ATTR_UNUSED,	/* pin not connected */
 diff --git a/sound/hda/common/hda_local.h b/sound/hda/common/hda_local.h
+index 98b2c4acebc2739acd4172f6a00f7fb60dd13ab9..947a3152fdb530bcde48cfbb0c175bfaabd83231 100644
 --- a/sound/hda/common/hda_local.h
 +++ b/sound/hda/common/hda_local.h
 @@ -723,4 +723,11 @@ void snd_hda_codec_display_power(struct hda_codec *codec, bool enable);
@@ -6874,6 +6920,7 @@ diff --git a/sound/hda/common/hda_local.h b/sound/hda/common/hda_local.h
 +
  #endif /* __SOUND_HDA_LOCAL_H */
 diff --git a/sound/hda/common/jack.c b/sound/hda/common/jack.c
+index e0a5cc38540ba18203a8b5645bdcfa829131ff18..1d6b0f0e6f27e8ead23c1e83b1142d3d64e8a118 100644
 --- a/sound/hda/common/jack.c
 +++ b/sound/hda/common/jack.c
 @@ -612,10 +612,10 @@ static int add_jack_kctl(struct hda_codec *codec, hda_nid_t nid,
@@ -6890,6 +6937,7 @@ diff --git a/sound/hda/common/jack.c b/sound/hda/common/jack.c
  	if (err < 0)
  		return err;
 diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
+index 28c55c5a2d2ef30e8a3602ecaa331da2436625dd..24015c73a67f0cb71fee921c5ddb30e6ba7d8d93 100644
 --- a/sound/hda/controllers/intel.c
 +++ b/sound/hda/controllers/intel.c
 @@ -100,6 +100,8 @@ enum {
@@ -6974,6 +7022,7 @@ diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
  };
  MODULE_DEVICE_TABLE(pci, azx_ids);
 diff --git a/sound/hda/core/controller.c b/sound/hda/core/controller.c
+index 69e11d62bbfa7a5351f1f6e198c92cfb5677df72..78855ac357c607e4311c757bc3bec667145f32ef 100644
 --- a/sound/hda/core/controller.c
 +++ b/sound/hda/core/controller.c
 @@ -511,7 +511,10 @@ void snd_hdac_bus_exit_link_reset(struct hdac_bus *bus)
@@ -7049,6 +7098,7 @@ diff --git a/sound/hda/core/controller.c b/sound/hda/core/controller.c
  EXPORT_SYMBOL_GPL(snd_hdac_bus_alloc_stream_pages);
  
 diff --git a/sound/hda/core/device.c b/sound/hda/core/device.c
+index ebaa106d0f0185932129cb2c6f88a4de7f4dc263..a45f61e12c1acf7050e448d3b4bc8be62742ea3e 100644
 --- a/sound/hda/core/device.c
 +++ b/sound/hda/core/device.c
 @@ -664,6 +664,7 @@ static const struct hda_vendor_id hda_vendor_ids[] = {
@@ -7069,6 +7119,7 @@ diff --git a/sound/hda/core/device.c b/sound/hda/core/device.c
  	bits = snd_pcm_hw_params_bits(&params);
  	if (maxbits)
 diff --git a/sound/hda/core/hda_bus_type.c b/sound/hda/core/hda_bus_type.c
+index a4afd41b6f840b6c61f39f793eb52cfc3bcc2655..e1e986a8b5b50e78860f1fa0302bc0a198ae6b75 100644
 --- a/sound/hda/core/hda_bus_type.c
 +++ b/sound/hda/core/hda_bus_type.c
 @@ -39,10 +39,7 @@ EXPORT_SYMBOL_GPL(hdac_get_device_id);
@@ -7095,6 +7146,7 @@ diff --git a/sound/hda/core/hda_bus_type.c b/sound/hda/core/hda_bus_type.c
  
  static int hda_uevent(const struct device *dev, struct kobj_uevent_env *env)
 diff --git a/sound/hda/core/stream.c b/sound/hda/core/stream.c
+index b471a038b3140dca765d99a5dd23808e67509bfa..0091c4ef648681769a7d8e5c7596044232182aeb 100644
 --- a/sound/hda/core/stream.c
 +++ b/sound/hda/core/stream.c
 @@ -146,8 +146,12 @@ void snd_hdac_stream_start(struct hdac_stream *azx_dev)
@@ -7171,6 +7223,7 @@ diff --git a/sound/hda/core/stream.c b/sound/hda/core/stream.c
  	/* wait for hardware to report that the stream is out of reset */
  	snd_hdac_stream_readb_poll(azx_dev, SD_CTL, val, !(val & SD_CTL_STREAM_RESET), 3, 300);
 diff --git a/sound/isa/msnd/msnd_pinnacle.c b/sound/isa/msnd/msnd_pinnacle.c
+index 0d5f4461a7bc8989d9c5b4a49ae80735962a5315..eac6e22362cc45ae9d4efa3c40369d8ac8072c17 100644
 --- a/sound/isa/msnd/msnd_pinnacle.c
 +++ b/sound/isa/msnd/msnd_pinnacle.c
 @@ -367,7 +367,8 @@ static int snd_msnd_init_sma(struct snd_msnd *chip)
@@ -7217,6 +7270,7 @@ diff --git a/sound/isa/msnd/msnd_pinnacle.c b/sound/isa/msnd/msnd_pinnacle.c
  
  #ifdef MSND_CLASSIC
 diff --git a/sound/isa/sscape.c b/sound/isa/sscape.c
+index ce8a59650e383b03aad8d9f22b003e47abe89868..9b615b588cdf1ec65ce3db57bfe5ea841c1cdbd0 100644
 --- a/sound/isa/sscape.c
 +++ b/sound/isa/sscape.c
 @@ -526,7 +526,7 @@ static int upload_dma_data(struct soundscape *s, const unsigned char *data,
@@ -7256,6 +7310,7 @@ diff --git a/sound/isa/sscape.c b/sound/isa/sscape.c
  }
  
 diff --git a/sound/isa/wavefront/wavefront_fx.c b/sound/isa/wavefront/wavefront_fx.c
+index beca35ce04f3b1d0d0d9cfa81a7ca053ae04fa88..6d95ea338ea9f7fc802b37231ab442589887a868 100644
 --- a/sound/isa/wavefront/wavefront_fx.c
 +++ b/sound/isa/wavefront/wavefront_fx.c
 @@ -232,41 +232,32 @@ snd_wavefront_fx_start (snd_wavefront_t *dev)
@@ -7308,6 +7363,7 @@ diff --git a/sound/isa/wavefront/wavefront_fx.c b/sound/isa/wavefront/wavefront_
  
  MODULE_FIRMWARE("yamaha/yss225_registers.bin");
 diff --git a/sound/isa/wavefront/wavefront_synth.c b/sound/isa/wavefront/wavefront_synth.c
+index 2f57a6795d22b856e9c270aebf44e232a33e7864..0c8f5cf264558e7b9655c609e43980d5073637a8 100644
 --- a/sound/isa/wavefront/wavefront_synth.c
 +++ b/sound/isa/wavefront/wavefront_synth.c
 @@ -2053,7 +2053,7 @@ wavefront_download_firmware (snd_wavefront_t *dev, char *path)
@@ -7332,6 +7388,7 @@ diff --git a/sound/isa/wavefront/wavefront_synth.c b/sound/isa/wavefront/wavefro
  	return 1;
  }
 diff --git a/sound/pci/asihpi/asihpi.c b/sound/pci/asihpi/asihpi.c
+index 4dbc79899c0919a253027790eb924fb3ee907fa5..b78e96caef9d08a41a2c4ba427e050cc51cfaabd 100644
 --- a/sound/pci/asihpi/asihpi.c
 +++ b/sound/pci/asihpi/asihpi.c
 @@ -280,7 +280,7 @@ static void print_hwparams(struct snd_pcm_substream *substream,
@@ -7344,6 +7401,7 @@ diff --git a/sound/pci/asihpi/asihpi.c b/sound/pci/asihpi/asihpi.c
  static const snd_pcm_format_t hpi_to_alsa_formats[] = {
  	INVALID_FORMAT,		/* INVALID */
 diff --git a/sound/pci/asihpi/hpidspcd.c b/sound/pci/asihpi/hpidspcd.c
+index b1b5a131f626b6fd8f5119b1d6f9272d9d24080c..6d2c27e47d071152091aff817e69ecbddf1496b1 100644
 --- a/sound/pci/asihpi/hpidspcd.c
 +++ b/sound/pci/asihpi/hpidspcd.c
 @@ -23,7 +23,7 @@ struct dsp_code_private {
@@ -7411,6 +7469,7 @@ diff --git a/sound/pci/asihpi/hpidspcd.c b/sound/pci/asihpi/hpidspcd.c
  	return err_ret;
  }
 diff --git a/sound/pci/asihpi/hpioctl.c b/sound/pci/asihpi/hpioctl.c
+index 9de9ae7032b8fa315b5138ec85b8c08cbc369583..ec2da792e1c81aab459c215d627e4386e19133ad 100644
 --- a/sound/pci/asihpi/hpioctl.c
 +++ b/sound/pci/asihpi/hpioctl.c
 @@ -385,8 +385,7 @@ int asihpi_adapter_probe(struct pci_dev *pci_dev,
@@ -7464,6 +7523,7 @@ diff --git a/sound/pci/asihpi/hpioctl.c b/sound/pci/asihpi/hpioctl.c
  		free_irq(pa->irq, pa);
  
 diff --git a/sound/pci/cs46xx/cs46xx_lib.c b/sound/pci/cs46xx/cs46xx_lib.c
+index 1c11023184accb8fa9beac7182d1151c5210e9a0..19a6927c079dd4826a0c3d650260a5db86e03cb2 100644
 --- a/sound/pci/cs46xx/cs46xx_lib.c
 +++ b/sound/pci/cs46xx/cs46xx_lib.c
 @@ -387,7 +387,7 @@ static int load_firmware(struct snd_cs46xx *chip,
@@ -7546,6 +7606,7 @@ diff --git a/sound/pci/cs46xx/cs46xx_lib.c b/sound/pci/cs46xx/cs46xx_lib.c
  
  static __maybe_unused int snd_cs46xx_download_image(struct snd_cs46xx *chip)
 diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
+index 08e0556bf16103db6348aff51757b2120b4b3afc..49cabb2eb2b799fef024c9375ca5244f426bab53 100644
 --- a/sound/pci/emu10k1/emufx.c
 +++ b/sound/pci/emu10k1/emufx.c
 @@ -990,7 +990,7 @@ static int snd_emu10k1_list_controls(struct snd_emu10k1 *emu,
@@ -7630,6 +7691,7 @@ diff --git a/sound/pci/emu10k1/emufx.c b/sound/pci/emu10k1/emufx.c
  	ctl->vcount = 2;
  	ctl->count = 10;
 diff --git a/sound/pci/korg1212/korg1212.c b/sound/pci/korg1212/korg1212.c
+index d16acf83668a1043c65243a72cf1e1d88ab65967..f4d8402f835ff6c93e5899021f7507635170020d 100644
 --- a/sound/pci/korg1212/korg1212.c
 +++ b/sound/pci/korg1212/korg1212.c
 @@ -1980,7 +1980,7 @@ static int snd_korg1212_create(struct snd_card *card, struct pci_dev *pci)
@@ -7663,6 +7725,7 @@ diff --git a/sound/pci/korg1212/korg1212.c b/sound/pci/korg1212/korg1212.c
  
  	if (rc)
 diff --git a/sound/pci/mixart/mixart_hwdep.c b/sound/pci/mixart/mixart_hwdep.c
+index 439e3ff05fe13d5dc44db489e931b76238fdc3a3..aa8d5bae30d0af2cb6dddd65f5b827aea1252fa0 100644
 --- a/sound/pci/mixart/mixart_hwdep.c
 +++ b/sound/pci/mixart/mixart_hwdep.c
 @@ -560,12 +560,11 @@ int snd_mixart_setup_firmware(struct mixart_mgr *mgr)
@@ -7688,6 +7751,7 @@ diff --git a/sound/pci/mixart/mixart_hwdep.c b/sound/pci/mixart/mixart_hwdep.c
  			return err;
  		mgr->dsp_loaded |= 1 << i;
 diff --git a/sound/pci/pcxhr/pcxhr_hwdep.c b/sound/pci/pcxhr/pcxhr_hwdep.c
+index 249805065f61413d5d06899ad6b3d292cfdc1ce2..54f3950579aa575f17326ba947d95124b3dd6d2a 100644
 --- a/sound/pci/pcxhr/pcxhr_hwdep.c
 +++ b/sound/pci/pcxhr/pcxhr_hwdep.c
 @@ -367,7 +367,6 @@ int pcxhr_setup_firmware(struct pcxhr_mgr *mgr)
@@ -7715,6 +7779,7 @@ diff --git a/sound/pci/pcxhr/pcxhr_hwdep.c b/sound/pci/pcxhr/pcxhr_hwdep.c
  			return err;
  		mgr->dsp_loaded |= 1 << i;
 diff --git a/sound/pci/sis7019.c b/sound/pci/sis7019.c
+index 4be085d27712ec86069e9eb71c096b59f93359ca..55c1b11a2900508f751cf8bcb3caac7c626e8704 100644
 --- a/sound/pci/sis7019.c
 +++ b/sound/pci/sis7019.c
 @@ -1260,16 +1260,16 @@ static int sis_chip_create(struct snd_card *card,
@@ -7740,6 +7805,7 @@ diff --git a/sound/pci/sis7019.c b/sound/pci/sis7019.c
  
  	rc = sis_alloc_suspend(sis);
 diff --git a/sound/sh/aica.c b/sound/sh/aica.c
+index 8196e1bf041644fe54b07d3b49e2ac3f3763d309..078fc7fc08f9f18ad0f2740df9f213ddc28f055f 100644
 --- a/sound/sh/aica.c
 +++ b/sound/sh/aica.c
 @@ -518,8 +518,9 @@ static const struct snd_kcontrol_new snd_aica_pcmvolume_control = {
@@ -7762,6 +7828,7 @@ diff --git a/sound/sh/aica.c b/sound/sh/aica.c
  }
  
 diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index e4d139108d7204d72345843875fb540c68d3a444..d3298dcbac08a06a6dd603bf8c3ed03d44534b86 100644
 --- a/sound/soc/codecs/Kconfig
 +++ b/sound/soc/codecs/Kconfig
 @@ -726,6 +726,10 @@ config SND_SOC_AW87390
@@ -7784,6 +7851,7 @@ diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
  	  This option enables support for aw88399 Smart PA.
  	  The awinic AW88399 is an I2S/TDM input, high efficiency
 diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
+index aa0396e5b575b67835b90ce8a6570f604688a043..d2a689006d69cc423bf73a1ff7553438d78b9459 100644
 --- a/sound/soc/codecs/Makefile
 +++ b/sound/soc/codecs/Makefile
 @@ -55,6 +55,7 @@ snd-soc-aw88395-y := aw88395/aw88395.o
@@ -7804,6 +7872,7 @@ diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
  obj-$(CONFIG_SND_SOC_CHV3_CODEC) += snd-soc-chv3-codec.o
 diff --git a/sound/soc/codecs/aw88399-lib.c b/sound/soc/codecs/aw88399-lib.c
 new file mode 100644
+index 0000000000000000000000000000000000000000..5c7982891def28cab16eeed3377ab1c0e30340ad
 --- /dev/null
 +++ b/sound/soc/codecs/aw88399-lib.c
 @@ -0,0 +1,1411 @@
@@ -9219,6 +9288,7 @@ new file mode 100644
 +MODULE_DESCRIPTION("AW88399 common device library");
 +MODULE_LICENSE("GPL");
 diff --git a/sound/soc/codecs/aw88399.c b/sound/soc/codecs/aw88399.c
+index b2ec3503f7e239728cc1f5ef285d828b44cf9d4b..13495e71ad0e70e528356059b025e34f92a9cc87 100644
 --- a/sound/soc/codecs/aw88399.c
 +++ b/sound/soc/codecs/aw88399.c
 @@ -10,1217 +10,12 @@
@@ -10598,6 +10668,7 @@ diff --git a/sound/soc/codecs/aw88399.c b/sound/soc/codecs/aw88399.c
  {
  	struct aw88399 *aw88399;
 diff --git a/sound/soc/codecs/aw88399.h b/sound/soc/codecs/aw88399.h
+index b386f48367481e188a7af21d8696b2cd9cc83ef8..04123bf0ad848edc62d5cf464fb11d6d6c09249d 100644
 --- a/sound/soc/codecs/aw88399.h
 +++ b/sound/soc/codecs/aw88399.h
 @@ -10,512 +10,10 @@
@@ -11197,6 +11268,7 @@ diff --git a/sound/soc/codecs/aw88399.h b/sound/soc/codecs/aw88399.h
 -#endif
 +#endif /* __AW88399_H__ */
 diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib.c
+index dcbeb9618195b750996240745b4f2d9e7b7f400c..bfabff583d57496f1538cdd176c107b646205c44 100644
 --- a/sound/soc/codecs/tas2781-fmwlib.c
 +++ b/sound/soc/codecs/tas2781-fmwlib.c
 @@ -1849,16 +1849,26 @@ static int tasdev_load_blk(struct tasdevice_priv *tas_priv,
@@ -11229,6 +11301,7 @@ diff --git a/sound/soc/codecs/tas2781-fmwlib.c b/sound/soc/codecs/tas2781-fmwlib
  				break;
  		}
 diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+index eff46666c8add604d0edbf9537ee2d275813c1b7..c56c6d31ea67e046d013a56614580975ba6ccf21 100644
 --- a/sound/soc/fsl/fsl-asoc-card.c
 +++ b/sound/soc/fsl/fsl-asoc-card.c
 @@ -1118,7 +1118,7 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
@@ -11241,6 +11314,7 @@ diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
  			/* Fallback to old binding; translate to asrc_format */
  			ret = of_property_read_u32(asrc_np, "fsl,asrc-width",
 diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
+index f23c210322872c74dd2437ce25f8c38d2e4bb67b..11748c65d5ccc6548b3a644575d0a57b8b150f0d 100644
 --- a/sound/soc/fsl/fsl_asrc.c
 +++ b/sound/soc/fsl/fsl_asrc.c
 @@ -1358,7 +1358,7 @@ static int fsl_asrc_probe(struct platform_device *pdev)
@@ -11253,6 +11327,7 @@ diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
  		ret = of_property_read_u32(np, "fsl,asrc-width", &width);
  		if (ret) {
 diff --git a/sound/soc/fsl/fsl_asrc_m2m.c b/sound/soc/fsl/fsl_asrc_m2m.c
+index 7d39378c06228d0879954297797a936f8b3b0d4b..4bc40f328f587a3d9ed712c69bc7c42be6b0065c 100644
 --- a/sound/soc/fsl/fsl_asrc_m2m.c
 +++ b/sound/soc/fsl/fsl_asrc_m2m.c
 @@ -367,13 +367,13 @@ static int fsl_asrc_m2m_comp_set_params(struct snd_compr_stream *stream,
@@ -11283,6 +11358,7 @@ diff --git a/sound/soc/fsl/fsl_asrc_m2m.c b/sound/soc/fsl/fsl_asrc_m2m.c
  			codec->descriptor[j].src.out_sample_rate_min = cap.rate_out[0];
  			codec->descriptor[j].src.out_sample_rate_max =
 diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
+index be59c138e3ea470ba56ea8228d599e9a8bd8c890..700b081de98fad9726bc00496cfe30b0d9c35519 100644
 --- a/sound/soc/fsl/fsl_easrc.c
 +++ b/sound/soc/fsl/fsl_easrc.c
 @@ -2227,7 +2227,7 @@ static int fsl_easrc_probe(struct platform_device *pdev)
@@ -11295,6 +11371,7 @@ diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
  		dev_err(dev, "failed to asrc format\n");
  		return ret;
 diff --git a/sound/soc/fsl/fsl_qmc_audio.c b/sound/soc/fsl/fsl_qmc_audio.c
+index d0f644573f499d165ebb34e8d302836e90812dc1..f27934cf49da0f9ec9d78923cc5af42c9a1038da 100644
 --- a/sound/soc/fsl/fsl_qmc_audio.c
 +++ b/sound/soc/fsl/fsl_qmc_audio.c
 @@ -503,8 +503,8 @@ static int qmc_dai_constraints_interleaved(struct snd_pcm_substream *substream,
@@ -11320,6 +11397,7 @@ diff --git a/sound/soc/fsl/fsl_qmc_audio.c b/sound/soc/fsl/fsl_qmc_audio.c
  					   access);
  	if (ret) {
 diff --git a/sound/soc/fsl/imx-card.c b/sound/soc/fsl/imx-card.c
+index 43438af1e1c680992eac3cd8e09de37f32259857..e3cb1438e837ba4fd2fd6600cd9e17d2cd707483 100644
 --- a/sound/soc/fsl/imx-card.c
 +++ b/sound/soc/fsl/imx-card.c
 @@ -531,7 +531,7 @@ static int be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
@@ -11341,6 +11419,7 @@ diff --git a/sound/soc/fsl/imx-card.c b/sound/soc/fsl/imx-card.c
  				/* Fallback to old binding; translate to asrc_format */
  				ret = of_property_read_u32(args.np, "fsl,asrc-width", &width);
 diff --git a/sound/soc/intel/avs/probes.c b/sound/soc/intel/avs/probes.c
+index 099119ad28b3cb22613535ddb12ea2d9676d0634..74096236984a00dda39da2099cfbb25483895386 100644
 --- a/sound/soc/intel/avs/probes.c
 +++ b/sound/soc/intel/avs/probes.c
 @@ -144,7 +144,7 @@ static int avs_probe_compr_set_params(struct snd_compr_stream *cstream,
@@ -11353,6 +11432,7 @@ diff --git a/sound/soc/intel/avs/probes.c b/sound/soc/intel/avs/probes.c
  		return bps;
  	format_val = snd_hdac_stream_format(params->codec.ch_out, bps, params->codec.sample_rate);
 diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index 983f3b91119a9253796c6017bad155161c747904..aa3d1a588479bb7615b50aa60e4d766ae9cf75d6 100644
 --- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
 +++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
 @@ -172,7 +172,7 @@ static int mt8183_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
@@ -11374,6 +11454,7 @@ diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/medi
  	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
  
 diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+index 0bc1f11e17aa7a40688d706966dd0bb1ed414751..dea7ad167a497822ddacbceabf853cd64bad0820 100644
 --- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
 +++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
 @@ -99,7 +99,7 @@ static int mt8183_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
@@ -11395,6 +11476,7 @@ diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/
  	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
  	return 0;
 diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366.c b/sound/soc/mediatek/mt8186/mt8186-mt6366.c
+index 22123b087c3cae07adf56a988f5528d38d164a42..b68f474b63f4206616e48d3168675f4bdbfd53ca 100644
 --- a/sound/soc/mediatek/mt8186/mt8186-mt6366.c
 +++ b/sound/soc/mediatek/mt8186/mt8186-mt6366.c
 @@ -387,7 +387,7 @@ static int mt8186_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
@@ -11407,6 +11489,7 @@ diff --git a/sound/soc/mediatek/mt8186/mt8186-mt6366.c b/sound/soc/mediatek/mt81
  	params_set_format(params, fmt);
  
 diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
+index 55ebac0c3cef2a8e27bc47e552e8762717ad3a0a..75c90d1d165f772e99e552c60335c602980cbb42 100644
 --- a/sound/soc/mediatek/mt8188/mt8188-mt6359.c
 +++ b/sound/soc/mediatek/mt8188/mt8188-mt6359.c
 @@ -623,7 +623,7 @@ static int mt8188_dptx_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
@@ -11419,6 +11502,7 @@ diff --git a/sound/soc/mediatek/mt8188/mt8188-mt6359.c b/sound/soc/mediatek/mt81
  	params_set_format(params, SNDRV_PCM_FORMAT_S32_LE);
  
 diff --git a/sound/soc/mediatek/mt8189/mt8189-nau8825.c b/sound/soc/mediatek/mt8189/mt8189-nau8825.c
+index e849e7a649bc3582a7a6dd16868c88c271d50f67..5d652d0cf01e2564dd86e38ebc82ac4ac1cb56e0 100644
 --- a/sound/soc/mediatek/mt8189/mt8189-nau8825.c
 +++ b/sound/soc/mediatek/mt8189/mt8189-nau8825.c
 @@ -174,7 +174,7 @@ static int mt8189_dptx_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
@@ -11431,6 +11515,7 @@ diff --git a/sound/soc/mediatek/mt8189/mt8189-nau8825.c b/sound/soc/mediatek/mt8
  	params_set_format(params, SNDRV_PCM_FORMAT_S32_LE);
  
 diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
+index 91c57765ab57b2d556d82629b98a36f837b3c995..8af8b0a366d588e7d2e7ad68d903768345f915c0 100644
 --- a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
 +++ b/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c
 @@ -382,7 +382,7 @@ static int mt8192_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
@@ -11443,6 +11528,7 @@ diff --git a/sound/soc/mediatek/mt8192/mt8192-mt6359-rt1015-rt5682.c b/sound/soc
  	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
  
 diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359.c b/sound/soc/mediatek/mt8195/mt8195-mt6359.c
+index 4d62bc654a587bcda59d5dabcdde12ebd6d3a3c1..fc293ca715023db2704df257b6ecf1d9c7fd7bcd 100644
 --- a/sound/soc/mediatek/mt8195/mt8195-mt6359.c
 +++ b/sound/soc/mediatek/mt8195/mt8195-mt6359.c
 @@ -387,7 +387,7 @@ static int mt8195_dptx_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
@@ -11464,6 +11550,7 @@ diff --git a/sound/soc/mediatek/mt8195/mt8195-mt6359.c b/sound/soc/mediatek/mt81
  	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
  
 diff --git a/sound/soc/mediatek/mt8196/mt8196-nau8825.c b/sound/soc/mediatek/mt8196/mt8196-nau8825.c
+index c9424786c53dfef80489bb60c4fe84c4c84cd7c6..1d1dad86365b67961010861289e31aa02a0915e6 100644
 --- a/sound/soc/mediatek/mt8196/mt8196-nau8825.c
 +++ b/sound/soc/mediatek/mt8196/mt8196-nau8825.c
 @@ -180,7 +180,7 @@ static int mt8196_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
@@ -11476,6 +11563,7 @@ diff --git a/sound/soc/mediatek/mt8196/mt8196-nau8825.c b/sound/soc/mediatek/mt8
  	params_set_format(params, SNDRV_PCM_FORMAT_S32_LE);
  	return 0;
 diff --git a/sound/soc/meson/meson-codec-glue.c b/sound/soc/meson/meson-codec-glue.c
+index 2ff6066e1b6ccd436612106bb6413c14bcd09ac0..8773bf06e1543861e7383c7b4714b7b8e337c8cd 100644
 --- a/sound/soc/meson/meson-codec-glue.c
 +++ b/sound/soc/meson/meson-codec-glue.c
 @@ -74,7 +74,7 @@ int meson_codec_glue_input_hw_params(struct snd_pcm_substream *substream,
@@ -11488,6 +11576,7 @@ diff --git a/sound/soc/meson/meson-codec-glue.c b/sound/soc/meson/meson-codec-gl
  	data->params.channels_max = params_channels(params);
  	data->params.sig_bits = dai->driver->playback.sig_bits;
 diff --git a/sound/sparc/dbri.c b/sound/sparc/dbri.c
+index 2f5f62079fa4a5bf792404a09691eb6e38599b7f..ccaa36525f8d636efb4b46efdaae3e137b2bd6ac 100644
 --- a/sound/sparc/dbri.c
 +++ b/sound/sparc/dbri.c
 @@ -1840,6 +1840,7 @@ static void dbri_process_one_interrupt(struct snd_dbri *dbri, int x)
@@ -11507,6 +11596,7 @@ diff --git a/sound/sparc/dbri.c b/sound/sparc/dbri.c
  	switch (code) {
  	case D_INTR_CMDI:
 diff --git a/sound/usb/6fire/firmware.c b/sound/usb/6fire/firmware.c
+index 123c1c6539b853d6cc4c86b81c9d97e940436937..d9dd8f44b047c529f8a57fd2988ef48cd9124bc0 100644
 --- a/sound/usb/6fire/firmware.c
 +++ b/sound/usb/6fire/firmware.c
 @@ -194,23 +194,20 @@ static int usb6fire_fw_ezusb_upload(
@@ -11610,6 +11700,7 @@ diff --git a/sound/usb/6fire/firmware.c b/sound/usb/6fire/firmware.c
  	ret = usb6fire_fw_ezusb_write(device, 9, 0, NULL, 0);
  	if (ret) {
 diff --git a/sound/usb/card.c b/sound/usb/card.c
+index 8b9d2ebf1809cda822fe7b9166f5b7a0a7fdc51c..9307da95efbef75aec763a29a17f7dde729ec14b 100644
 --- a/sound/usb/card.c
 +++ b/sound/usb/card.c
 @@ -715,7 +715,7 @@ static void snd_usb_init_quirk_flags(int idx, struct snd_usb_audio *chip)
@@ -11725,6 +11816,7 @@ diff --git a/sound/usb/card.c b/sound/usb/card.c
  
  	if (chip->quirk_flags & QUIRK_FLAG_DISABLE_AUTOSUSPEND)
 diff --git a/sound/usb/clock.c b/sound/usb/clock.c
+index 2e0c18e352812359c3a90cd36d0fe9cf7672bf32..34832183a1f0b93ec59c3901d0792acaf8c64614 100644
 --- a/sound/usb/clock.c
 +++ b/sound/usb/clock.c
 @@ -600,7 +600,7 @@ int snd_usb_set_sample_rate_v2v3(struct snd_usb_audio *chip,
@@ -11753,6 +11845,7 @@ diff --git a/sound/usb/clock.c b/sound/usb/clock.c
  	cur_rate = snd_usb_set_sample_rate_v2v3(chip, fmt, clock, rate);
  	if (cur_rate < 0) {
 diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
+index a0ec51cc56ace4ff6af67f29875b0c1fae00bead..b72ce1e9bfb1c31d76ceb198b476ce3ba82df2c5 100644
 --- a/sound/usb/endpoint.c
 +++ b/sound/usb/endpoint.c
 @@ -1237,7 +1237,10 @@ static int data_ep_set_params(struct snd_usb_endpoint *ep)
@@ -11777,6 +11870,7 @@ diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
  		u->urb->context = u;
  		u->urb->complete = snd_complete_urb;
 diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
+index ce27fc871f5139c8b9e9a8ebe1370dfef4ff9175..8046d5987d5b1c35a042d9a0414aa454328c2750 100644
 --- a/sound/usb/mixer_maps.c
 +++ b/sound/usb/mixer_maps.c
 @@ -505,6 +505,19 @@ static const struct usbmix_connector_map gigabyte_b450_connector_map[] = {
@@ -11812,6 +11906,7 @@ diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
  		/* KEF X300A */
  		.id = USB_ID(0x27ac, 0x1000),
 diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+index 74d26fd86efb41d3c45cb91373f3da594f8f5414..a1f5592cc5d50ecfdd60cb2600c5272049553f6d 100644
 --- a/sound/usb/mixer_quirks.c
 +++ b/sound/usb/mixer_quirks.c
 @@ -3920,6 +3920,7 @@ static int snd_rme_digiface_controls_create(struct usb_mixer_interface *mixer)
@@ -11863,6 +11958,7 @@ diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
  		err = hp_dock_mixer_create(mixer);
  		break;
 diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index 9a28d7c6d923a4e102307d041bdc4a4589e1a6d7..0a3d39b8385becbcd590a83ddf292f1c8f94cffe 100644
 --- a/sound/usb/quirks-table.h
 +++ b/sound/usb/quirks-table.h
 @@ -3320,6 +3320,73 @@ YAMAHA_DEVICE(0x7010, "UB99"),
@@ -11940,9 +12036,10 @@ diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
  /*
   * MacroSilicon MS2100/MS2106 based AV capture cards
 diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 9ab79172fd4aef3eec7f74cbde81e75a9fb2eb19..c89b2d9b1ba19c9a4631dc75c389e86da8c90350 100644
 --- a/sound/usb/quirks.c
 +++ b/sound/usb/quirks.c
-@@ -2145,7 +2145,7 @@ struct usb_string_match {
+@@ -2170,7 +2170,7 @@ struct usb_string_match {
  
  struct usb_audio_quirk_flags_table {
  	u32 id;
@@ -11951,7 +12048,7 @@ diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
  	const struct usb_string_match *usb_string_match;
  };
  
-@@ -2314,7 +2314,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+@@ -2339,7 +2339,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
  	DEVICE_FLG(0x0661, 0x0883, /* iBasso DC04 Ultra */
  		   QUIRK_FLAG_DSD_RAW),
  	DEVICE_FLG(0x0666, 0x0880, /* SPACETOUCH USB Audio */
@@ -11961,7 +12058,7 @@ diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
  	DEVICE_FLG(0x06f8, 0xb000, /* Hercules DJ Console (Windows Edition) */
  		   QUIRK_FLAG_IGNORE_CTL_ERROR),
  	DEVICE_FLG(0x06f8, 0xd002, /* Hercules DJ Console (Macintosh Edition) */
-@@ -2337,6 +2338,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+@@ -2362,6 +2363,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
  		   QUIRK_FLAG_IGNORE_CTL_ERROR),
  	DEVICE_FLG(0x0951, 0x16ad, /* Kingston HyperX */
  		   QUIRK_FLAG_CTL_MSG_DELAY_1M),
@@ -11970,7 +12067,7 @@ diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
  	DEVICE_FLG(0x0b05, 0x18a6, /* ASUSTek Computer, Inc. */
  		   QUIRK_FLAG_MIXER_CAPTURE_MIN_MUTE),
  	DEVICE_FLG(0x0b0e, 0x0349, /* Jabra 550a */
-@@ -2432,6 +2435,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+@@ -2457,6 +2460,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
  		   QUIRK_FLAG_GET_SAMPLE_RATE | QUIRK_FLAG_MIC_RES_16),
  	DEVICE_FLG(0x1bcf, 0x2283, /* NexiGo N930AF FHD Webcam */
  		   QUIRK_FLAG_GET_SAMPLE_RATE | QUIRK_FLAG_MIC_RES_16),
@@ -11979,7 +12076,7 @@ diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
  	DEVICE_FLG(0x1ff7, 0x0f81, /* SC13A Webcam */
  		   QUIRK_FLAG_GET_SAMPLE_RATE),
  	DEVICE_FLG(0x2040, 0x7200, /* Hauppauge HVR-950Q */
-@@ -2528,6 +2533,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+@@ -2551,6 +2556,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
  		   QUIRK_FLAG_ALIGN_TRANSFER),
  	DEVICE_FLG(0x534d, 0x2109, /* MacroSilicon MS2109 */
  		   QUIRK_FLAG_ALIGN_TRANSFER),
@@ -11988,7 +12085,7 @@ diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
  	DEVICE_FLG(0x84ef, 0x0082, /* Hotone Audio Pulze Mini */
  		   QUIRK_FLAG_MIXER_PLAYBACK_LINEAR_VOL | QUIRK_FLAG_MIXER_CAPTURE_LINEAR_VOL),
  
-@@ -2641,18 +2648,12 @@ static const char *const snd_usb_audio_quirk_flag_names[] = {
+@@ -2666,18 +2673,12 @@ static const char *const snd_usb_audio_quirk_flag_names[] = {
  	QUIRK_STRING_ENTRY(MIXER_CAPTURE_LINEAR_VOL),
  	QUIRK_STRING_ENTRY(IFB_SILENCE_ON_EMPTY),
  	QUIRK_STRING_ENTRY(MIXER_GET_CUR_BROKEN),
@@ -12010,7 +12107,7 @@ diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
  {
  	int i;
  
-@@ -2661,7 +2662,7 @@ u32 snd_usb_quirk_flags_from_name(const char *name)
+@@ -2686,7 +2687,7 @@ u32 snd_usb_quirk_flags_from_name(const char *name)
  
  	for (i = 0; snd_usb_audio_quirk_flag_names[i]; i++) {
  		if (strcasecmp(name, snd_usb_audio_quirk_flag_names[i]) == 0)
@@ -12019,7 +12116,7 @@ diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
  	}
  
  	return 0;
-@@ -2719,7 +2720,7 @@ void snd_usb_init_quirk_flags_parse_string(struct snd_usb_audio *chip,
+@@ -2744,7 +2745,7 @@ void snd_usb_init_quirk_flags_parse_string(struct snd_usb_audio *chip,
  {
  	u16 chip_vid = USB_ID_VENDOR(chip->usb_id);
  	u16 chip_pid = USB_ID_PRODUCT(chip->usb_id);
@@ -12028,7 +12125,7 @@ diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
  	char *p, *field, *flag;
  	bool is_unmask;
  	u16 vid, pid;
-@@ -2773,7 +2774,7 @@ void snd_usb_init_quirk_flags_parse_string(struct snd_usb_audio *chip,
+@@ -2798,7 +2799,7 @@ void snd_usb_init_quirk_flags_parse_string(struct snd_usb_audio *chip,
  				is_unmask = false;
  			}
  
@@ -12038,6 +12135,7 @@ diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
  					unmask_flags |= bit;
  				else
 diff --git a/sound/usb/quirks.h b/sound/usb/quirks.h
+index f24d6a5a197a641dac36eb3c6eca5dbf5076b495..0a723c266bb4319a8b1147f46eb201b88e126a25 100644
 --- a/sound/usb/quirks.h
 +++ b/sound/usb/quirks.h
 @@ -56,7 +56,4 @@ void snd_usb_init_quirk_flags_table(struct snd_usb_audio *chip);
@@ -12049,6 +12147,7 @@ diff --git a/sound/usb/quirks.h b/sound/usb/quirks.h
 -
  #endif /* __USBAUDIO_QUIRKS_H */
 diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
+index e26f9092417ed06d4c28a7b5f314d742d5895fe8..c49709d7ad2581c57058afa211d95fca0d176e28 100644
 --- a/sound/usb/usbaudio.h
 +++ b/sound/usb/usbaudio.h
 @@ -44,7 +44,7 @@ struct snd_usb_audio {
@@ -12100,6 +12199,7 @@ diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
  
  #endif /* __USBAUDIO_H */
 diff --git a/sound/usb/usx2y/us144mkii_pcm.h b/sound/usb/usx2y/us144mkii_pcm.h
+index 74da8564431b9afd840d632545183f790617c1bc..a130678405e3b6360a86569f1645f481b3ec38c5 100644
 --- a/sound/usb/usx2y/us144mkii_pcm.h
 +++ b/sound/usb/usx2y/us144mkii_pcm.h
 @@ -7,7 +7,7 @@
@@ -12129,6 +12229,7 @@ diff --git a/sound/usb/usx2y/us144mkii_pcm.h b/sound/usb/usx2y/us144mkii_pcm.h
   * This structure defines the callback functions for capture stream operations.
   */
 diff --git a/sound/usb/usx2y/usbusx2yaudio.c b/sound/usb/usx2y/usbusx2yaudio.c
+index 3808df54727d65cae9d1cd7d407af179962d8acf..a3a0bc13632b8cfa0d019890ab13b5c8003737b8 100644
 --- a/sound/usb/usx2y/usbusx2yaudio.c
 +++ b/sound/usb/usx2y/usbusx2yaudio.c
 @@ -167,7 +167,6 @@ static int usx2y_urb_submit(struct snd_usx2y_substream *subs, struct urb *urb, i

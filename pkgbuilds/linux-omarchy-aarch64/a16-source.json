@@ -1,0 +1,45 @@
+{
+  "status": "source rebase verified; build and hardware acceptance pending",
+  "kernel_version": "7.2.10",
+  "a16_dsp_abi": 1,
+  "source_tree": "dcbc7cbc0b8a00381ef6ea7154867d078bef8e6d",
+  "source_commit": "8e8a48aa9ce31b9a1b7c79066728d8f7782c7c68",
+  "shared_base_tree": "e5f27b199d06f9cf223de366c7c496806746f815",
+  "rebased_shared_patches": [
+    "0510-sound-updates.patch",
+    "0514-sound-fixes-2.patch",
+    "0522-sound-fixes-3.patch",
+    "0525-asoc-fixes-3.patch",
+    "0527-sound-fixes-5.patch",
+    "0528-asoc-fixes-4.patch",
+    "0562-hid-fixes.patch",
+    "0602-thunderbolt-fixes.patch",
+    "0603-usb-updates.patch",
+    "0606-thunderbolt-fixes-2.patch",
+    "0607-usb-fixes.patch",
+    "1030-n1x-audio.patch"
+  ],
+  "shared_patches_already_in_stable": [
+    "0141-sched-urgent-fixes.patch",
+    "0212-pm-fixes-2.patch",
+    "0442-drm-i915-psr-clear-stale-sel-fetch-bits.patch",
+    "0444-drm-i915-vrr-dc-balance-off-by-default.patch",
+    "0477-amd-display-irq-atomic-rmw.patch",
+    "0563-input-fixes-2.patch",
+    "0670-bluetooth-fixes.patch",
+    "0701-pci-amd-enhanced-atomics.patch"
+  ],
+  "board_patch_sha256": "72a4f37be5e63382fc81930e25db3e546c3e1b349cf6ad278206dfffba9cb377",
+  "board_reference": "zenbook-a16-linux/kernel/arch-7.2.10 (127-patch audited Arch reference)",
+  "keyboard_resolution": "retain Omarchy 1100-1104; omit redundant board patches 0031 and 0059",
+  "additional_upstream_patches": [
+    "1085-thunderbolt-keep-the-tunnels-of-routers-kept-awake-in-system-sleep.patch",
+    "1086-thunderbolt-space-out-the-NVIDIA-N1x-DP-tunnel-teardowns.patch"
+  ],
+  "upstream_package_commit": "4114f7f",
+  "shared_i2c_fix": {
+    "patch": "1111-i2c-qcom-geni-restore-source-clock-selection.patch",
+    "author": "Abel Vesa",
+    "message_id": "20260928-b4-i2c-qcom-geni-preserve-source-clock-v1-1-9aded7552a76@oss.qualcomm.com"
+  }
+}

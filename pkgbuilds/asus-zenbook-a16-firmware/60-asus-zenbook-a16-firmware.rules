@@ -1,0 +1,2 @@
+# Queue calibration setup before 80-drivers.rules queues the Wi-Fi driver.
+ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x17cb", ATTR{device}=="0x1112", RUN+="/usr/lib/asus-zenbook-a16-firmware/activate-calibration"

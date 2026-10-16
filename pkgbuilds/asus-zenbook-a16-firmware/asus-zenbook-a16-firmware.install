@@ -1,0 +1,14 @@
+post_install() {
+  /usr/lib/asus-zenbook-a16-firmware/activate-calibration
+}
+
+post_upgrade() {
+  post_install
+}
+
+post_remove() {
+  local file=/usr/lib/firmware/updates/ath12k/QCC2072/hw1.0/board.bin
+  if [[ -L $file && $(readlink "$file") == /usr/share/asus-zenbook-a16-firmware/board.bin ]]; then
+    rm "$file"
+  fi
+}

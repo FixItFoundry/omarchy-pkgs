@@ -1,0 +1,70 @@
+# Local hardware-test candidate. OEM redistribution terms remain unconfirmed;
+# do not publish this package or an image containing it before that is resolved.
+pkgname=asus-zenbook-a16-firmware
+pkgver=1.312.4500.0
+pkgrel=1
+pkgdesc='ASUS Zenbook A16 UX3607OA DSP firmware and QCC2072 board data'
+arch=(aarch64)
+url='https://www.asus.com/supportonly/ux3607oa/helpdesk_download/'
+license=(LicenseRef-ASUS-Qualcomm)
+depends=(bash coreutils grep)
+makedepends=(python)
+options=('!strip' '!debug')
+install=asus-zenbook-a16-firmware.install
+_exe=SOCPackage_forWebSite_Qualcomm_Z_V1.312.4500.0_50616.exe
+source=("$_exe::https://dlcdnets.asus.com/pub/ASUS/nb/Image/Driver/DriverPackage/50616/$_exe"
+        activate-calibration 60-asus-zenbook-a16-firmware.rules NOTICE)
+sha256sums=('e8f2389ac5d4dfd30a1a8481ec3c1e282f24baea2898414351d0b6eb1fa8a0b3'
+            'bc331928760e890b244db1d15f7eb646f54159aa9f515ddead07dcdfcf73073b' '24ff27eb7dbdb0784135276e89471f6f630c6f8fa64e13e05925b7e95844755f' '775ebcc68c9673850c9254da654f3fc78b98552b4ab5a2041f1df88ef385eed4')
+
+prepare() {
+  # Like the ProArt firmware recipe, read the appended archive without running
+  # the EXE. libarchive can unpack it once the executable prefix is removed.
+  python - "$_exe" <<'PY'
+import mmap
+from pathlib import Path
+import shutil
+import sys
+with Path(sys.argv[1]).open('rb') as source:
+    with mmap.mmap(source.fileno(), 0, access=mmap.ACCESS_READ) as data:
+        offset = data.find(b'7z\xbc\xaf\x27\x1c')
+    if offset < 0:
+        raise SystemExit('ASUS package has no appended 7z archive')
+    source.seek(offset)
+    with Path('driver.7z').open('wb') as target:
+        shutil.copyfileobj(source, target)
+PY
+  mkdir -p firmware
+  # The INF selects this root ADSP pair, not the distinct pair under ADSP/.
+  local name
+  for name in qcadsp8480.mbn adsp_dtbs.elf; do
+    bsdtar -xOf driver.7z "QualcommBSP/Subsystem/qcsubsys_ext_adsp8480/$name" > "firmware/$name"
+  done
+  for name in qccdsp8480.mbn cdsp_dtbs.elf; do
+    bsdtar -xOf driver.7z "QualcommBSP/NPU/qcnspmcdm8480/$name" > "firmware/$name"
+  done
+  bsdtar -xOf driver.7z QualcommBSP/WIFI_BT/qcwlancol8480/bdwlan_qcc2072_1p0_ncm820A.elf > firmware/board.bin
+}
+
+check() {
+  cd firmware
+  sha256sum -c <<'SUMS'
+67b4e129d4d60fccd05d85be3754168f46535549a03a3627c598d634e73df49d  qcadsp8480.mbn
+7906466c734b2f360d48cf086f80b6e04d84e9b02255c74545aa28d5df1e932c  adsp_dtbs.elf
+acf13d29288d283793f418a36650e8a261eed927d30de109a59cb2210f458794  qccdsp8480.mbn
+9bee104a48d4aac647287d6c1454df170c1cff7158a2352711fd1e2163ea6d1d  cdsp_dtbs.elf
+eeb1311ec3e4955323f1b62247d4caeaad1f292938e2077dfdc466d6a4d3be86  board.bin
+SUMS
+}
+
+package() {
+  local name
+  for name in qcadsp8480.mbn adsp_dtbs.elf qccdsp8480.mbn cdsp_dtbs.elf; do
+    install -Dm644 "firmware/$name" "$pkgdir/usr/lib/firmware/qcom/glymur/ASUSTeK/UX3607OA/$name"
+  done
+  # A shared image must not give another QCC2072 board the ASUS calibration.
+  install -Dm644 firmware/board.bin "$pkgdir/usr/share/$pkgname/board.bin"
+  install -Dm755 activate-calibration "$pkgdir/usr/lib/$pkgname/activate-calibration"
+  install -Dm644 60-asus-zenbook-a16-firmware.rules "$pkgdir/usr/lib/udev/rules.d/60-asus-zenbook-a16-firmware.rules"
+  install -Dm644 NOTICE "$pkgdir/usr/share/licenses/$pkgname/NOTICE"
+}

@@ -1,0 +1,28 @@
+#!/bin/bash
+set -euo pipefail
+
+activate_calibration() {
+  local compatible=$1 source=$2 destination=$3
+  [[ -r $compatible ]] || return 0
+  tr '\0' '\n' < "$compatible" | grep -Fxq -e asus,zenbook-a16-ux3607oa -e asus,ux3607oa || return 0
+  [[ -s $source ]] || { echo 'A16 calibration package is incomplete' >&2; return 1; }
+  if [[ -L $destination ]]; then
+    [[ $(readlink "$destination") == "$source" ]] && return 0
+    echo "A16 calibration has an existing override: $destination" >&2
+    return 1
+  elif [[ -e $destination ]]; then
+    # Adopt the identical copy staged by the installer; preserve other data.
+    if [[ ! -f $destination ]] || ! cmp -s "$source" "$destination"; then
+      echo "A16 calibration differs from the packaged file: $destination" >&2
+      return 1
+    fi
+  fi
+  mkdir -p "${destination%/*}"
+  ln -sfnT "$source" "$destination"
+}
+
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+  activate_calibration /sys/firmware/devicetree/base/compatible \
+    /usr/share/asus-zenbook-a16-firmware/board.bin \
+    /usr/lib/firmware/updates/ath12k/QCC2072/hw1.0/board.bin
+fi

@@ -1,4 +1,8 @@
+# Rebased from Omarchy 7.2.8-9 0606-thunderbolt-fixes-2.patch
+# Original SHA256: b45303b559ab8990ecb4e0281e5d529625311e795d6c3a9a52c2c27498141e18
+
 diff --git a/drivers/thunderbolt/domain.c b/drivers/thunderbolt/domain.c
+index 1416ecdf8e5285978d487825dbc3c019b80bd1cb..c8f5c9869e40a10a7f67a4b5b82bf7efeb489fbd 100644
 --- a/drivers/thunderbolt/domain.c
 +++ b/drivers/thunderbolt/domain.c
 @@ -788,21 +788,6 @@ int tb_domain_approve_xdomain_paths(struct tb *tb, struct tb_xdomain *xd,
@@ -46,6 +50,7 @@ diff --git a/drivers/thunderbolt/domain.c b/drivers/thunderbolt/domain.c
  
  static int disconnect_xdomain(struct device *dev, void *data)
 diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
+index d4d1efa2afa0e05aa7f407446280cb14b1dd3b4b..be18f7b6595a63493d870e9209b229e09b2687d1 100644
 --- a/drivers/thunderbolt/nhi.c
 +++ b/drivers/thunderbolt/nhi.c
 @@ -1180,32 +1180,6 @@ static void nhi_reset(struct tb_nhi *nhi)
@@ -82,6 +87,7 @@ diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
  {
  	struct tb *tb;
 diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
+index f72d6b27450189a5d25f0881af07119482d5e257..d488eadadfceeb1998af08e73e37e813be1a00df 100644
 --- a/drivers/thunderbolt/nhi.h
 +++ b/drivers/thunderbolt/nhi.h
 @@ -36,8 +36,6 @@ irqreturn_t nhi_msi(int irq, void *data);
@@ -137,6 +143,7 @@ diff --git a/drivers/thunderbolt/nhi.h b/drivers/thunderbolt/nhi.h
  /*
   * Minimal number of vectors when we use MSI-X. Two for control channel
 diff --git a/drivers/thunderbolt/nhi_regs.h b/drivers/thunderbolt/nhi_regs.h
+index 99df60b6db36a7d84899fd25f1698121a2735efa..d6a197fabc74a229cd9eb9c4eb405a583105882c 100644
 --- a/drivers/thunderbolt/nhi_regs.h
 +++ b/drivers/thunderbolt/nhi_regs.h
 @@ -115,10 +115,6 @@ struct ring_desc {
@@ -151,6 +158,7 @@ diff --git a/drivers/thunderbolt/nhi_regs.h b/drivers/thunderbolt/nhi_regs.h
  #define REG_DMA_MISC_INT_AUTO_CLEAR     BIT(2)
  #define REG_DMA_MISC_DISABLE_AUTO_CLEAR	BIT(17)
 diff --git a/drivers/thunderbolt/pci.c b/drivers/thunderbolt/pci.c
+index 99333729f3c2ac6f6d00fd00fc1e22173fa75c71..8462ccb59b7e2394114c600606694cbe67947368 100644
 --- a/drivers/thunderbolt/pci.c
 +++ b/drivers/thunderbolt/pci.c
 @@ -62,27 +62,6 @@ static void nhi_pci_check_quirks(struct tb_nhi_pci *nhi_pci)
@@ -197,20 +205,8 @@ diff --git a/drivers/thunderbolt/pci.c b/drivers/thunderbolt/pci.c
  };
  
  static int nhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-diff --git a/drivers/thunderbolt/quirks.c b/drivers/thunderbolt/quirks.c
---- a/drivers/thunderbolt/quirks.c
-+++ b/drivers/thunderbolt/quirks.c
-@@ -99,6 +99,9 @@ static const struct tb_quirk tb_quirks[] = {
- 		  quirk_usb3_maximum_bandwidth },
- 	{ 0x8087, PCI_DEVICE_ID_INTEL_BARLOW_RIDGE_HUB_40G_BRIDGE, 0x0000, 0x0000,
- 		  quirk_usb3_maximum_bandwidth },
-+	/* CLx is unstable on the Anker Prime TB5 dock (DROM 01ea:83b5) */
-+	{ 0x8087, PCI_DEVICE_ID_INTEL_BARLOW_RIDGE_HUB_80G_BRIDGE, 0x01ea, 0x83b5,
-+		  quirk_clx_disable },
- 	/*
- 	 * Block Runtime PM in DP redrive mode for Intel Barlow Ridge host
- 	 * controllers.
 diff --git a/drivers/thunderbolt/stream.c b/drivers/thunderbolt/stream.c
+index c737dd0ca6e72ed1af27cdfb63fb32c5bb078dc8..8ef4064b5939a71d1a718c7fe8277846ff399e26 100644
 --- a/drivers/thunderbolt/stream.c
 +++ b/drivers/thunderbolt/stream.c
 @@ -980,6 +980,9 @@ static int tbstream_dev_fops_open(struct inode *inode, struct file *file)
@@ -223,17 +219,3 @@ diff --git a/drivers/thunderbolt/stream.c b/drivers/thunderbolt/stream.c
  	return 0;
  
  err_unlock:
-diff --git a/drivers/thunderbolt/xdomain.c b/drivers/thunderbolt/xdomain.c
---- a/drivers/thunderbolt/xdomain.c
-+++ b/drivers/thunderbolt/xdomain.c
-@@ -377,6 +377,10 @@ static int tb_xdp_properties_request(struct tb_ctl *ctl, u64 route,
- 
- 		len += sizeof(res->hdr.xd_hdr) / 4;
- 		len -= sizeof(*res) / 4;
-+		if (len > TB_XDP_PROPERTIES_MAX_DATA_LENGTH) {
-+			ret = -EINVAL;
-+			goto err;
-+		}
- 
- 		if (res->offset != req.offset) {
- 			ret = -EINVAL;
