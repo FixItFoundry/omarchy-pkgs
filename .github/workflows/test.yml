@@ -80,6 +80,8 @@ jobs:
               ./tests/build-matrix.sh
               ./tests/mac-installer-dispatch.sh
               ./tests/limine-mkinitcpio-hook.sh
+              ./tests/linux-omarchy-source.sh
+              python tests/linux-omarchy-a16.py
               ./tests/voxtype-bin-install.sh
               ./tests/1password-polkit-owners.sh
               ./tests/superwhisper-bin-install.sh

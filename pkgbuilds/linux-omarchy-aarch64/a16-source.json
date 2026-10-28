@@ -1,0 +1,42 @@
+{
+  "status": "Linux 7.3-5 rebase after Surface Laptop 8 #1706; signed-source replay, native AArch64 object/DTB checks and packaging regressions pass. Full native split-package build and physical A16 acceptance remain pending.",
+  "kernel_version": "7.3",
+  "package_revision": 5,
+  "a16_dsp_abi": 1,
+  "source_tree": "035c9c08d096b1762f937a942ce9d3c17f2e392e",
+  "upstream_package_commit": "a8de4a65abd6bf0bfd90fa515d2f160ca280c973",
+  "upstream_kernel_recipe": "https://github.com/omacom/omarchy-pkgs/tree/a8de4a65abd6bf0bfd90fa515d2f160ca280c973/pkgbuilds/linux-omarchy-aarch64",
+  "upstream_kernel_sha256": "87363c24f10e06321eb362765521094e94471f6bff8bce2d6b3e40f39f004953",
+  "board_reference": "https://github.com/FixItFoundry/zenbook-a16-linux/tree/a35b01128b2a45532fd72a2c5dd3caccdfe4ac57/kernel/arch-7.2.10",
+  "original_contribution_commit": "4c4570e1e1e0a9f75d9522fd67095030c0513dbb",
+  "patch_review": {
+    "2500": "Rebased after all 357 shared patches, including #1706. Shared LPASS addresses, USB votes, eDP calibration and LINK_RATE_SET refinements are not duplicated. QMP resource tracking/Type-C rollback, DP error cleanup and synchronized altmode snapshots retain shared USB4 ownership, FEC paths and masked V2 mux values. Invalid cable guards return -EINVAL to the acknowledging worker. Failed USB/USB4 initialization drops its tentative reference even if reset cleanup fails; resource ownership remains tracked for recovery.",
+    "2501": "Renumbered from 2301; deferred SoundWire codec behavior retained unchanged.",
+    "2302": "Original A16 block-mq fix remains dropped because Linux 7.3 includes it. Shared patch 2302 is the Surface LPASS regcache change and is retained.",
+    "2503": "Renumbered from 2303; temporary -EAGAIN battery property handling retained unchanged.",
+    "shared": "All 357 shared patches, signatures, checksums and config.aarch64 are retained, including TYPEC=y and USB4_QCOM=m from #1706."
+  },
+  "local_patch_sha256": {
+    "2500-glymur-asus-zenbook-a16-local-hardware-fixes.patch": "e3fbd4e5d252fedebc29214664243490af439e742870bcebb07190e26f9c0825",
+    "2501-soundwire-qcom-allow-deferred-codecs-at-boot.patch": "768bc9688b9cae6c6e4fdfd5425ae18a4ac5febc659988e88af521b5d963e461",
+    "2503-power-supply-uevent-eagain.patch": "96760536815e8b44de166ed40c82cf5b9227a3bdbcfd850d639a913339b66d77"
+  },
+  "prior_hardware_acceptance": {
+    "release": "7.2.8-24-omarchy",
+    "source_tree": "d05c4879b3789c74e2a73684683b15deb0be258b",
+    "scope": "Previously reported native build, source replay, both UKIs, early DSPs, audio, keyboard, touchscreen, charger transitions and Bluetooth calls/audio. These results do not validate Linux 7.3-5."
+  },
+  "hardware_required": [
+    "Boot both UKIs on A16; verify kernel-release/ABI markers and both early DSPs before root mount",
+    "Audio playback and microphones; deferred codec reset and recovery",
+    "Internal display, HDMI/USB-C output, hotplug, failed-link recovery and power transitions",
+    "Battery/charger transitions and initramfs uevents",
+    "Wi-Fi and Bluetooth calls/audio, keyboard, touchscreen, USB and storage",
+    "Native kernel/modules/headers/source package build, packaged-header module compilation and distributed-source replay",
+    "Other ARM-board regression coverage before shared promotion"
+  ],
+  "excluded_acceptance": "Camera and suspend remain disabled in the prior bring-up scope; this rebase supplies no hardware acceptance for them. No OEM firmware or omarchy-a16-support recipe is included.",
+  "shared_patch_count": 357,
+  "total_patch_count": 360,
+  "kernel_release": "7.3.0-5-omarchy"
+}
